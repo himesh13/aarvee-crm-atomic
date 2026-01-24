@@ -2,48 +2,92 @@
 
 ## Executive Summary
 
-Your requirements can be implemented using Atomic CRM, but we recommend starting with the existing Supabase backend before migrating to Spring Boot. This approach:
+Your requirements can be implemented using Atomic CRM. We now recommend a **Hybrid Architecture** approach that combines the best of both worlds:
 
-- ✅ Reduces development time by 60%
-- ✅ Allows you to validate requirements with users quickly
-- ✅ Minimizes risk by using proven technology
-- ✅ Can migrate to Spring Boot later if needed
+- ✅ **Fastest delivery**: 8-10 weeks to production
+- ✅ **Most cost-effective**: ~$27K-32K (saves ~$11K-38K vs alternatives)
+- ✅ **Best flexibility**: Keep Supabase benefits + Custom features
+- ✅ **Lower risk**: Use proven technology where it works, custom where needed
 
-## Three Approaches Compared
+## Four Approaches Compared
 
-| Aspect | Supabase First (Recommended) | Spring Boot Immediately | Hybrid |
-|--------|------------------------------|-------------------------|--------|
-| **Time to MVP** | 4-6 weeks | 16-20 weeks | 10-12 weeks |
-| **Backend Development** | Minimal (Supabase config) | Full backend from scratch | Partial |
-| **Frontend Development** | Focus on features | Split attention | Focus on features |
-| **Risk Level** | Low | High | Medium |
-| **Flexibility** | High (can migrate later) | High | Medium |
-| **Learning Curve** | Low | High (if team unfamiliar) | Medium |
-| **Cost (Dev Time)** | ~6 weeks | ~20 weeks | ~12 weeks |
-| **Maintenance** | Low (managed service) | High (self-hosted) | Medium |
+| Aspect | Hybrid (⭐ Recommended) | Supabase Only | Spring Boot Only | Hybrid Spring Boot |
+|--------|------------------------|---------------|------------------|-------------------|
+| **Time to MVP** | 4-6 weeks | 4-6 weeks | 16-20 weeks | 6-8 weeks |
+| **Total Time** | 8-10 weeks | 12 weeks | 20-24 weeks | 12-14 weeks |
+| **Backend Dev** | Node.js microservice | Supabase only | Full backend | Spring microservice |
+| **Risk Level** | Low | Low | High | Medium |
+| **Flexibility** | High | Medium | High | High |
+| **Cost (Dev)** | ~$27K-32K | ~$38K | ~$64K | ~$45K |
+| **Infrastructure** | $660-900/yr | $400/yr | $2,800/yr | $1,200/yr |
+| **Maintenance** | Low-Medium | Low | High | Medium |
 
-## Recommended Approach: Supabase First
+## ⭐ Recommended Approach: Hybrid Architecture
 
-### Why This Makes Sense
+### What Is Hybrid Architecture?
 
-1. **Faster Validation**: Get working software in front of users in 4-6 weeks vs 16-20 weeks
-2. **Lower Risk**: Use battle-tested Atomic CRM foundation
-3. **Cost Effective**: Supabase free tier supports small teams
-4. **Built-in Features**: Authentication, file storage, real-time updates included
-5. **Easy Migration**: Can move to Spring Boot later if truly needed
+Use **Supabase for existing CRM features** + **Custom microservice for new requirements**:
 
-### When to Actually Use Spring Boot
+```
+Frontend (React)
+     ↓
+Composite Data Provider
+     ├→ Supabase (contacts, companies, deals, tasks, notes)
+     └→ Node.js Microservice (lead management, business details, reminders)
+```
 
-Consider Spring Boot if you have:
-- ✅ Existing Spring Boot microservices you need to integrate with
-- ✅ Team expertise only in Java/Spring
-- ✅ Company policy mandating self-hosted solutions
-- ✅ Complex business logic better handled in Java
-- ✅ Need for specific Java libraries or frameworks
+### Why Hybrid Is Best
 
-**But even then**, consider starting with Supabase for rapid prototyping!
+1. **Fastest to Market**: Keep Supabase for what works (8-10 weeks vs 12-24 weeks)
+2. **Most Cost-Effective**: Only build custom features (~$27K vs $38K-64K)
+3. **Best Flexibility**: Add/modify custom features without touching core CRM
+4. **Lower Risk**: Proven Supabase + targeted custom code
+5. **Easy to Scale**: Add more microservices as needed
 
-## Implementation Roadmap (Supabase Approach)
+### What Goes Where?
+
+**Keep in Supabase** (existing features that work):
+- ✅ Contacts (basic info)
+- ✅ Companies (basic info)
+- ✅ Deals
+- ✅ Tasks
+- ✅ Notes with attachments
+- ✅ Tags
+- ✅ Users/Sales team
+- ✅ Authentication
+- ✅ File storage
+
+**Build in Custom Microservice** (new requirements):
+- ✅ Lead extensions (lead number, product, loan amount, location, referred by)
+- ✅ Lead status (custom statuses)
+- ✅ Business details
+- ✅ Property/auto/machinery details
+- ✅ Multiple companies/individuals per lead
+- ✅ Disbursement tracking
+- ✅ Document management
+- ✅ Reminders (birthday, loan topup)
+- ✅ PDF/Word export
+
+### Technology for Custom Microservice
+
+**Recommended: Node.js + Express** (⭐ Best fit)
+- Same language as frontend (TypeScript)
+- Fast development
+- Easy integration with Supabase
+- Timeline: 8-10 weeks total
+
+**Alternative: Spring Boot** (If Java expertise)
+- Strongly typed (Java)
+- Good for complex business logic
+- Timeline: 12-14 weeks total
+
+See **[HYBRID_ARCHITECTURE_GUIDE.md](./HYBRID_ARCHITECTURE_GUIDE.md)** for complete details!
+
+---
+
+## Alternative Approaches
+
+### Approach 2: Supabase Only (Not Recommended for Your Requirements)
 
 ### Week 1-2: Basic Setup & Level 1 Features
 

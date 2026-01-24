@@ -6,9 +6,33 @@ This directory contains comprehensive documentation for implementing your custom
 
 **Question**: Can we implement these requirements with Spring Boot backend?
 
-**Answer**: ✅ **YES**, but we strongly recommend starting with Supabase first (saves 8-12 weeks and $28,000).
+**Answer**: ✅ **YES**, but we have an even better option:
+
+**⭐ RECOMMENDED: Hybrid Architecture** - Use Supabase for existing features + Node.js microservice for new custom features
+- ⏱️ Fastest: 8-10 weeks (vs 12 weeks Supabase-only, 20-24 weeks Spring Boot-only)
+- 💰 Most cost-effective: ~$27K-32K (vs $39K Supabase-only, $60K-73K Spring Boot)
+- 🎯 Best of both worlds: Keep Supabase benefits + Custom flexibility
+- ✅ See **[HYBRID_ARCHITECTURE_GUIDE.md](./HYBRID_ARCHITECTURE_GUIDE.md)** ⭐ NEW!
 
 ## 📚 Documentation Files
+
+### ⭐ NEW: [HYBRID_ARCHITECTURE_GUIDE.md](./HYBRID_ARCHITECTURE_GUIDE.md)
+**Purpose**: Hybrid approach using Supabase + custom microservice  
+**Read this first if**: You want the optimal solution (RECOMMENDED)
+
+**Contents**:
+- ✅ Why hybrid is best (faster, cheaper, more flexible)
+- Architecture diagrams for hybrid approach
+- Technology recommendations (Node.js vs Spring Boot vs Python)
+- Composite data provider pattern
+- Feature distribution (what goes where)
+- Database strategy (shared vs separate)
+- 8-10 week implementation timeline
+- Cost analysis (~$27K-32K vs alternatives)
+
+**Key Takeaway**: Best approach - use Supabase for standard CRM, Node.js microservice for custom features.
+
+---
 
 ### 1. [SPRING_BOOT_FEASIBILITY.md](./SPRING_BOOT_FEASIBILITY.md)
 **Purpose**: Complete feasibility analysis  
@@ -84,7 +108,30 @@ This directory contains comprehensive documentation for implementing your custom
 
 ## 🚀 Quick Start
 
-### Recommended: Supabase Approach (12 weeks)
+### ⭐ Recommended: Hybrid Approach (8-10 weeks)
+
+**Setup Supabase for existing features**:
+```bash
+git clone https://github.com/himesh13/aarvee-crm-atomic.git
+cd aarvee-crm-atomic
+make install
+make start
+```
+
+**Setup Node.js microservice for custom features**:
+```bash
+# Create custom service
+mkdir crm-custom-service && cd crm-custom-service
+npm init -y
+npm install express typescript prisma @prisma/client
+# See HYBRID_ARCHITECTURE_GUIDE.md for complete setup
+```
+
+**Next**: Read [HYBRID_ARCHITECTURE_GUIDE.md](./HYBRID_ARCHITECTURE_GUIDE.md) for detailed implementation
+
+---
+
+### Alternative: Supabase Only Approach (12 weeks)
 
 ```bash
 # Week 1-2: Setup and Level 1 Features
@@ -117,17 +164,17 @@ spring init --dependencies=web,data-jpa,security,postgresql crm-backend
 
 ## 📊 Comparison at a Glance
 
-| Metric | Supabase First | Spring Boot |
-|--------|----------------|-------------|
-| **Time to MVP** | 4-6 weeks | 16-20 weeks |
-| **Total Time** | 12 weeks | 20-24 weeks |
-| **Dev Cost** | $38,400 | $64,000 |
-| **Annual Infra** | $400 | $2,800 |
-| **Risk** | Low | High |
-| **Maintenance** | Low | High |
-| **Flexibility** | Can migrate later | Full control |
+| Metric | Hybrid (⭐ Recommended) | Supabase Only | Spring Boot Only |
+|--------|------------------------|---------------|------------------|
+| **Time to MVP** | 4-6 weeks | 4-6 weeks | 16-20 weeks |
+| **Total Time** | 8-10 weeks | 12 weeks | 20-24 weeks |
+| **Dev Cost** | $25.6K-32K | $38.4K | $64K |
+| **Annual Infra** | $660-900 | $400 | $2,800 |
+| **Risk** | Low | Low | High |
+| **Flexibility** | High | Medium | High |
+| **Custom Features** | Full support | Limited | Full support |
 
-**Savings**: Start with Supabase saves ~$28,000 and 8-12 weeks
+**Best Choice**: Hybrid approach saves time AND money while providing full flexibility!
 
 ---
 
@@ -163,7 +210,33 @@ spring init --dependencies=web,data-jpa,security,postgresql crm-backend
 
 ## 💡 Our Recommendation
 
-### Phase 1: Validate with Supabase (12 weeks)
+### ⭐ Hybrid Architecture (8-10 weeks)
+
+**Use Supabase for**:
+- ✅ Contacts, companies, deals (basic CRUD)
+- ✅ Tasks and notes
+- ✅ Authentication & storage
+- ✅ Activity logs
+
+**Use Node.js Microservice for**:
+- ✅ Lead management (lead number, product, loan amount, location)
+- ✅ Business details, property details, auto/machinery loan
+- ✅ Multiple companies/individuals per lead
+- ✅ Disbursement tracking & documents
+- ✅ Reminders (birthday, loan topup)
+- ✅ PDF/Word export
+
+**Why This Works**:
+1. **Faster**: Keep working Supabase features
+2. **Cheaper**: Only build what's custom
+3. **Flexible**: Add/modify custom features easily
+4. **Maintainable**: Separation of concerns
+
+See **[HYBRID_ARCHITECTURE_GUIDE.md](./HYBRID_ARCHITECTURE_GUIDE.md)** for complete details.
+
+---
+
+### Alternative: Validate with Supabase Only (12 weeks)
 1. **Weeks 1-2**: Build Level 1 (lead capture)
 2. **Weeks 3-4**: Add Level 2 (lead management)
 3. **Weeks 5-6**: Implement product-specific details

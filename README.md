@@ -80,20 +80,35 @@ To customize Atomic CRM, you will need TypeScript and React programming skills a
 3. [Using Fake Rest Data Provider for Development](./doc/src/content/docs/developers/data-providers.mdx) *(optional)*
 4. [Architecture Decisions](./doc/src/content/docs/developers/architecture-choices.mdx) *(optional)*
 
-## Spring Boot Backend Integration
+## Spring Boot Backend Integration & Custom Requirements
 
-If you're considering using Spring Boot as your backend instead of Supabase, or if you need to implement extensive custom requirements, we have comprehensive documentation:
+If you need to implement extensive custom requirements, we have comprehensive documentation covering multiple approaches:
 
 📖 **[Implementation Documentation Overview](./IMPLEMENTATION_DOCS_README.md)** - Start here for a complete guide
 
-This documentation includes:
+### Three Implementation Options:
 
-1. **[Spring Boot Feasibility Analysis](./SPRING_BOOT_FEASIBILITY.md)** - Is it possible? (Answer: YES, with considerations)
-2. **[Spring Boot Implementation Guide](./SPRING_BOOT_IMPLEMENTATION_GUIDE.md)** - Complete step-by-step setup (35KB guide)
-3. **[Requirements Mapping](./REQUIREMENTS_MAPPING.md)** - Field-by-field implementation details
-4. **[Quick Start Guide](./QUICK_START_GUIDE.md)** - Recommendations and week-by-week roadmap
+1. **⭐ Hybrid Architecture (Recommended)** - [HYBRID_ARCHITECTURE_GUIDE.md](./HYBRID_ARCHITECTURE_GUIDE.md)
+   - Use Supabase for existing CRM features + Node.js/Spring Boot microservice for custom requirements
+   - **Fastest**: 8-10 weeks | **Most cost-effective**: ~$27K-32K
+   - Best of both worlds: Keep Supabase benefits + Full custom flexibility
 
-**TL;DR**: You can implement custom CRM requirements with Spring Boot, but we recommend starting with Supabase first (saves 8-12 weeks and ~$28K). You can always migrate to Spring Boot later if needed.
+2. **Supabase Only** - [QUICK_START_GUIDE.md](./QUICK_START_GUIDE.md)
+   - Extend Supabase with custom fields and logic
+   - **Timeline**: 12 weeks | **Cost**: ~$38K
+   - Good for simpler customizations
+
+3. **Full Spring Boot Migration** - [SPRING_BOOT_IMPLEMENTATION_GUIDE.md](./SPRING_BOOT_IMPLEMENTATION_GUIDE.md)
+   - Replace Supabase entirely with Spring Boot backend
+   - **Timeline**: 20-24 weeks | **Cost**: ~$64K
+   - Only if you need complete backend control
+
+**Additional Documentation**:
+- [Spring Boot Feasibility Analysis](./SPRING_BOOT_FEASIBILITY.md) - Detailed analysis of all approaches
+- [Requirements Mapping](./REQUIREMENTS_MAPPING.md) - Field-by-field implementation details
+- [Architecture Diagrams](./ARCHITECTURE_DIAGRAMS.md) - Visual comparison of architectures
+
+**TL;DR**: For custom lead management, business details, disbursements, and reminders → use **Hybrid Architecture** (saves time and money while maintaining flexibility).
 
 ## Testing Changes
 
