@@ -80,6 +80,21 @@ To customize Atomic CRM, you will need TypeScript and React programming skills a
 3. [Using Fake Rest Data Provider for Development](./doc/src/content/docs/developers/data-providers.mdx) *(optional)*
 4. [Architecture Decisions](./doc/src/content/docs/developers/architecture-choices.mdx) *(optional)*
 
+## Spring Boot Backend Integration
+
+If you're considering using Spring Boot as your backend instead of Supabase, or if you need to implement extensive custom requirements, we have comprehensive documentation:
+
+📖 **[Implementation Documentation Overview](./IMPLEMENTATION_DOCS_README.md)** - Start here for a complete guide
+
+This documentation includes:
+
+1. **[Spring Boot Feasibility Analysis](./SPRING_BOOT_FEASIBILITY.md)** - Is it possible? (Answer: YES, with considerations)
+2. **[Spring Boot Implementation Guide](./SPRING_BOOT_IMPLEMENTATION_GUIDE.md)** - Complete step-by-step setup (35KB guide)
+3. **[Requirements Mapping](./REQUIREMENTS_MAPPING.md)** - Field-by-field implementation details
+4. **[Quick Start Guide](./QUICK_START_GUIDE.md)** - Recommendations and week-by-week roadmap
+
+**TL;DR**: You can implement custom CRM requirements with Spring Boot, but we recommend starting with Supabase first (saves 8-12 weeks and ~$28K). You can always migrate to Spring Boot later if needed.
+
 ## Testing Changes
 
 This project contains unit tests. Run them with the following command:
