@@ -80,6 +80,36 @@ To customize Atomic CRM, you will need TypeScript and React programming skills a
 3. [Using Fake Rest Data Provider for Development](./doc/src/content/docs/developers/data-providers.mdx) *(optional)*
 4. [Architecture Decisions](./doc/src/content/docs/developers/architecture-choices.mdx) *(optional)*
 
+## Spring Boot Backend Integration & Custom Requirements
+
+If you need to implement extensive custom requirements, we have comprehensive documentation covering multiple approaches:
+
+📖 **[Implementation Documentation Overview](./IMPLEMENTATION_DOCS_README.md)** - Start here for a complete guide
+
+### Three Implementation Options:
+
+1. **⭐ Hybrid Architecture (Recommended)** - [HYBRID_ARCHITECTURE_GUIDE.md](./HYBRID_ARCHITECTURE_GUIDE.md)
+   - Use Supabase for existing CRM features + Node.js/Spring Boot microservice for custom requirements
+   - **Fastest**: 8-10 weeks | **Most cost-effective**: ~$27K-32K
+   - Best of both worlds: Keep Supabase benefits + Full custom flexibility
+
+2. **Supabase Only** - [QUICK_START_GUIDE.md](./QUICK_START_GUIDE.md)
+   - Extend Supabase with custom fields and logic
+   - **Timeline**: 12 weeks | **Cost**: ~$38K
+   - Good for simpler customizations
+
+3. **Full Spring Boot Migration** - [SPRING_BOOT_IMPLEMENTATION_GUIDE.md](./SPRING_BOOT_IMPLEMENTATION_GUIDE.md)
+   - Replace Supabase entirely with Spring Boot backend
+   - **Timeline**: 20-24 weeks | **Cost**: ~$64K
+   - Only if you need complete backend control
+
+**Additional Documentation**:
+- [Spring Boot Feasibility Analysis](./SPRING_BOOT_FEASIBILITY.md) - Detailed analysis of all approaches
+- [Requirements Mapping](./REQUIREMENTS_MAPPING.md) - Field-by-field implementation details
+- [Architecture Diagrams](./ARCHITECTURE_DIAGRAMS.md) - Visual comparison of architectures
+
+**TL;DR**: For custom lead management, business details, disbursements, and reminders → use **Hybrid Architecture** (saves time and money while maintaining flexibility).
+
 ## Testing Changes
 
 This project contains unit tests. Run them with the following command:
