@@ -92,6 +92,8 @@ If you need to implement extensive custom requirements, we have comprehensive do
    - Use Supabase for existing CRM features + Node.js/Spring Boot microservice for custom requirements
    - **Fastest**: 8-10 weeks | **Most cost-effective**: ~$27K-32K
    - Best of both worlds: Keep Supabase benefits + Full custom flexibility
+   - **🚀 NEW: [Node.js Setup Guide](./NODEJS_HYBRID_SETUP_GUIDE.md)** - Complete setup instructions
+   - **📝 [Development Workflow](./DEVELOPMENT_WORKFLOW.md)** - Day-to-day development guide
 
 2. **Supabase Only** - [QUICK_START_GUIDE.md](./QUICK_START_GUIDE.md)
    - Extend Supabase with custom fields and logic
@@ -109,6 +111,32 @@ If you need to implement extensive custom requirements, we have comprehensive do
 - [Architecture Diagrams](./ARCHITECTURE_DIAGRAMS.md) - Visual comparison of architectures
 
 **TL;DR**: For custom lead management, business details, disbursements, and reminders → use **Hybrid Architecture** (saves time and money while maintaining flexibility).
+
+### 🎯 Quick Start with Node.js Hybrid Architecture
+
+Ready to start building custom features? Follow these steps:
+
+```bash
+# 1. Clone and install
+git clone https://github.com/himesh13/aarvee-crm-atomic.git
+cd aarvee-crm-atomic
+make install
+
+# 2. Start Supabase
+make start
+
+# 3. Setup custom Node.js service
+cd crm-custom-service
+npm install
+cp .env.example .env
+# Edit .env with your Supabase credentials
+npm run prisma:generate
+
+# 4. Start custom service
+npm run dev
+```
+
+See **[NODEJS_HYBRID_SETUP_GUIDE.md](./NODEJS_HYBRID_SETUP_GUIDE.md)** for complete instructions.
 
 ## Testing Changes
 
