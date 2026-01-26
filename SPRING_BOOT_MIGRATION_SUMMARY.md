@@ -124,7 +124,8 @@ cd crm-custom-service-spring
 
 # 2. Configure environment
 cp .env.example .env
-# Edit .env with your Supabase JWT secret
+# The .env.example already has the default local JWT secret configured
+# For production, update .env with your actual Supabase JWT secret
 
 # 3. Install dependencies and compile
 mvn clean install
@@ -159,7 +160,7 @@ All other resources continue to use Supabase.
 
 1. ✅ Spring Boot service is created and compiles successfully
 2. 🔄 Start Supabase locally: `make start-supabase`
-3. 🔄 Configure `.env` with actual JWT secret from Supabase
+3. ✅ JWT secret is already configured in `.env.example` for local development
 4. 🔄 Start the Spring Boot service: `mvn spring-boot:run`
 5. 🔄 Start the frontend: `npm run dev`
 6. 🔄 Test the integration end-to-end

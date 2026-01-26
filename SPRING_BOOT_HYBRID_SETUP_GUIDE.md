@@ -80,10 +80,15 @@ CORS_ALLOWED_ORIGINS=http://localhost:5173
 
 **Finding Your JWT Secret:**
 
+For **local development**, use the default Supabase JWT secret:
 ```bash
-# From repository root
-grep jwt_secret supabase/config.toml
+SUPABASE_JWT_SECRET=super-secret-jwt-token-with-at-least-32-characters-long
 ```
+
+For **production**, get your JWT secret from the Supabase dashboard:
+1. Go to https://app.supabase.com/project/YOUR_PROJECT/settings/api
+2. Under "JWT Settings", copy the "JWT Secret" value
+3. Update your `.env` file with this value
 
 ### Step 3: Install Dependencies
 
@@ -166,7 +171,31 @@ curl -X POST http://localhost:3001/api/lead_extensions \
 
 ### Service Won't Start
 
-Ensure `.env` file exists and `SUPABASE_JWT_SECRET` is set.
+**Error: "SUPABASE_JWT_SECRET environment variable is not set"**
+
+Solution: Ensure `.env` file exists in `crm-custom-service-spring/` directory with the JWT secret:
+
+```bash
+# For local development
+SUPABASE_JWT_SECRET=super-secret-jwt-token-with-at-least-32-characters-long
+```
+
+### Can't Find the JWT Secret
+
+**For Local Development:**
+The default Supabase local development JWT secret is:
+```
+super-secret-jwt-token-with-at-least-32-characters-long
+```
+
+**For Production:**
+1. Log in to your Supabase dashboard at https://app.supabase.com
+2. Select your project
+3. Go to Settings → API
+4. Scroll down to "JWT Settings"
+5. Copy the "JWT Secret" value
+
+**Note:** The JWT secret is NOT stored in `supabase/config.toml`. This is a common misconception.
 
 ### Database Errors
 

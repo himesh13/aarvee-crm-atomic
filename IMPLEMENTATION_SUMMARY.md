@@ -178,6 +178,8 @@ cp .env.example .env
 Required environment variables:
 - `DATABASE_URL` - PostgreSQL connection string
 - `SUPABASE_JWT_SECRET` - For validating JWT tokens
+  - Local dev: `super-secret-jwt-token-with-at-least-32-characters-long`
+  - Production: Get from Supabase Dashboard → Settings → API → JWT Secret
 - `SUPABASE_URL` - Your Supabase project URL
 - `CORS_ORIGIN` - Frontend URL (default: http://localhost:5173)
 

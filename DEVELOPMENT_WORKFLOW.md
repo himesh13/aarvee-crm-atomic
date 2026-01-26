@@ -492,7 +492,9 @@ npm run prisma:generate
 ### Issue: "Authentication failed"
 
 **Solution**:
-1. Check if JWT secret in `.env` matches Supabase
+1. Check if JWT secret in `.env` matches Supabase:
+   - **Local dev**: `super-secret-jwt-token-with-at-least-32-characters-long`
+   - **Production**: Get from Supabase Dashboard → Settings → API → JWT Secret
 2. Get fresh token from browser localStorage
 3. Verify token in https://jwt.io
 
