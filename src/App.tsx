@@ -1,4 +1,5 @@
 import { CRM } from "@/components/atomic-crm/root/CRM";
+import { compositeDataProvider } from "@/components/atomic-crm/providers/composite/compositeDataProvider";
 
 /**
  * Application entry point
@@ -25,6 +26,6 @@ import { CRM } from "@/components/atomic-crm/root/CRM";
  *    />
  * );
  */
-const App = () => <CRM />;
+const App = () => <CRM dataProvider={compositeDataProvider} />;
 
 export default App;
