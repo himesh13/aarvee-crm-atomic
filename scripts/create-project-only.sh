@@ -19,12 +19,10 @@ if ! gh auth status &>/dev/null; then
 fi
 
 # Create the project
-PROJECT_URL=$(gh project create \
+if PROJECT_URL=$(gh project create \
     --owner "$REPO_OWNER" \
     --title "$PROJECT_TITLE" \
-    --format json 2>&1)
-
-if [[ $PROJECT_URL == *"number"* ]]; then
+    --format json 2>&1); then
     PROJECT_NUMBER=$(echo "$PROJECT_URL" | jq -r '.number')
     echo "✅ Project created successfully!"
     echo ""

@@ -2,6 +2,13 @@
 
 # GitHub Project Creation Script for Aarvee CRM Features
 # This script creates a GitHub project and populates it with feature tasks
+#
+# Configuration:
+#   ISSUE_CREATE_DELAY - Delay between issue creation (default: 2 seconds)
+#                        Set higher if you hit rate limits
+#
+# Usage:
+#   ISSUE_CREATE_DELAY=3 ./create-github-project.sh
 
 set -e
 
@@ -60,8 +67,8 @@ create_issue() {
     if [[ $ISSUE_URL == *"https://github.com"* ]]; then
         echo "  ✅ Issue created: $ISSUE_URL"
         
-        # Extract issue number from URL
-        ISSUE_NUMBER=$(echo "$ISSUE_URL" | grep -oP '\d+$')
+        # Extract issue number from URL (portable solution)
+        ISSUE_NUMBER=$(echo "$ISSUE_URL" | sed 's/.*\///')
         
         # Add issue to project
         gh project item-add "$PROJECT_NUMBER" \
@@ -71,7 +78,8 @@ create_issue() {
         echo "  ❌ Failed to create issue: $ISSUE_URL"
     fi
     
-    sleep 1  # Rate limiting
+    # Rate limiting with configurable delay (default 2 seconds for safety)
+    sleep "${ISSUE_CREATE_DELAY:-2}"
 }
 
 # Create labels if they don't exist
