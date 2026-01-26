@@ -101,13 +101,20 @@ mvn spring-boot:run
 
 The Spring Boot service connects to the same PostgreSQL database as Supabase, allowing seamless data integration.
 
+**Database Integration Notes:**
+- Both services use the same Supabase PostgreSQL database
+- Spring Boot connects via standard JDBC with credentials from `.env`
+- Supabase handles existing CRM tables (contacts, companies, deals, etc.)
+- Spring Boot manages custom tables for business-specific features
+- Authentication is handled via Supabase JWT tokens validated by both services
+
 **Local Service URLs:**
 - Frontend: http://localhost:5173/
 - Supabase API: http://127.0.0.1:54321
 - Spring Boot API: http://localhost:8080
 - Supabase Dashboard: http://localhost:54323/
 
-See **[AGENTS.md](./AGENTS.md)** for detailed development workflow and architecture information.
+See **[AGENTS.md](./AGENTS.md)** for detailed development workflow, architecture patterns, and customization guide. For Spring Boot service details, see **[crm-custom-service-spring/README.md](./crm-custom-service-spring/README.md)**.
 
 ## Documentation
 
