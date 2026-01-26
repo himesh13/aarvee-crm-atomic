@@ -10,7 +10,7 @@ This setup provides everything needed to start implementing the custom business 
 
 ### 📚 Documentation (4 files)
 
-1. **NODEJS_HYBRID_SETUP_GUIDE.md** (39 KB)
+1. **SPRING_BOOT_HYBRID_SETUP_GUIDE.md** (39 KB)
    - Complete setup guide with step-by-step instructions
    - Architecture diagrams and explanations
    - Database setup instructions
@@ -37,7 +37,7 @@ This setup provides everything needed to start implementing the custom business 
    - Quick start instructions
    - Links to all documentation
 
-### 🚀 Node.js Microservice (crm-custom-service/)
+### 🚀 Node.js Microservice (crm-custom-service-spring/)
 
 #### Configuration Files
 - `package.json` - Dependencies and scripts
@@ -159,7 +159,7 @@ This setup provides everything needed to start implementing the custom business 
 
 ```bash
 # Navigate to custom service
-cd crm-custom-service
+cd crm-custom-service-spring
 
 # Install Node.js dependencies
 npm install
@@ -205,7 +205,7 @@ npx supabase db reset
 make start
 
 # Terminal 2: Start custom service
-cd crm-custom-service
+cd crm-custom-service-spring
 npm run dev
 
 # Terminal 3: Start frontend
@@ -307,7 +307,7 @@ Choose the right document for your task:
 
 | Task | Document |
 |------|----------|
-| First-time setup | [NODEJS_HYBRID_SETUP_GUIDE.md](./NODEJS_HYBRID_SETUP_GUIDE.md) |
+| First-time setup | [SPRING_BOOT_HYBRID_SETUP_GUIDE.md](./SPRING_BOOT_HYBRID_SETUP_GUIDE.md) |
 | Daily development | [DEVELOPMENT_WORKFLOW.md](./DEVELOPMENT_WORKFLOW.md) |
 | Quick reference | [QUICK_REFERENCE.md](./QUICK_REFERENCE.md) |
 | Business requirements | [BusinessRequirements.md](./BusinessRequirements.md) |
@@ -328,7 +328,7 @@ The monorepo approach has been set up with:
 - ✅ Coordinated deployments
 - ✅ Single issue tracker
 
-The `crm-custom-service/` directory contains the Node.js microservice within the same repository.
+The `crm-custom-service-spring/` directory contains the Node.js microservice within the same repository.
 
 ### Q: Can we switch to Spring Boot later?
 
@@ -345,7 +345,7 @@ The `crm-custom-service/` directory contains the Node.js microservice within the
 2. **Alternative**: Both on AWS (S3 + ECS)
 3. **Self-hosted**: Docker Compose
 
-See [NODEJS_HYBRID_SETUP_GUIDE.md](./NODEJS_HYBRID_SETUP_GUIDE.md) Part 7 for details.
+See [SPRING_BOOT_HYBRID_SETUP_GUIDE.md](./SPRING_BOOT_HYBRID_SETUP_GUIDE.md) Part 7 for details.
 
 ### Q: What about authentication?
 
@@ -392,7 +392,7 @@ To get started quickly, try these:
 
 1. **View the database**:
    ```bash
-   cd crm-custom-service
+   cd crm-custom-service-spring
    npm run prisma:studio
    ```
 
@@ -402,12 +402,12 @@ To get started quickly, try these:
    ```
 
 3. **Browse the code**:
-   - Start with `crm-custom-service/src/index.ts`
+   - Start with `crm-custom-service-spring/src/index.ts`
    - Check out `controllers/leadController.ts`
    - Review `routes/leadRoutes.ts`
 
 4. **Read the setup guide**:
-   - Open [NODEJS_HYBRID_SETUP_GUIDE.md](./NODEJS_HYBRID_SETUP_GUIDE.md)
+   - Open [SPRING_BOOT_HYBRID_SETUP_GUIDE.md](./SPRING_BOOT_HYBRID_SETUP_GUIDE.md)
    - Follow Part 1-5 to get everything running
 
 ---

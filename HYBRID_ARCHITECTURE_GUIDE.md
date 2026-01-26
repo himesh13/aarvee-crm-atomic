@@ -172,8 +172,8 @@ Based on your requirements, here are the best options ranked:
 **Node.js/Express Example**:
 ```bash
 # Create microservice directory
-mkdir crm-custom-service
-cd crm-custom-service
+mkdir crm-custom-service-spring
+cd crm-custom-service-spring
 
 # Initialize
 npm init -y
@@ -188,7 +188,7 @@ npx tsc --init
 
 **Project Structure**:
 ```
-crm-custom-service/
+crm-custom-service-spring/
 ├── src/
 │   ├── config/
 │   │   ├── database.ts
@@ -872,7 +872,7 @@ This is much easier than full migration upfront!
 
 ```bash
 # 1. Create service
-mkdir crm-custom-service && cd crm-custom-service
+mkdir crm-custom-service-spring && cd crm-custom-service-spring
 npm init -y
 
 # 2. Install dependencies
