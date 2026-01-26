@@ -10,9 +10,10 @@ export const LeadCreate = () => {
   const redirect = useRedirect();
 
   const generateLeadNumber = () => {
-    const timestamp = Date.now();
-    const random = Math.floor(Math.random() * 1000);
-    return `LEAD-${timestamp}-${random}`;
+    // Generate a unique lead number using UUID
+    const uuid = crypto.randomUUID();
+    const shortId = uuid.split('-')[0].toUpperCase();
+    return `LEAD-${shortId}`;
   };
 
   return (

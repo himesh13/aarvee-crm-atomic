@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -36,8 +37,8 @@ public class LeadExtension {
     @Column(name = "product", length = 255)
     private String product;
     
-    @Column(name = "loan_amount_required")
-    private Long loanAmountRequired;
+    @Column(name = "loan_amount_required", precision = 19, scale = 2)
+    private BigDecimal loanAmountRequired;
     
     @Column(name = "location", length = 500)
     private String location;
