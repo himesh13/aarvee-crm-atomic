@@ -89,10 +89,10 @@ If you need to implement extensive custom requirements, we have comprehensive do
 ### Three Implementation Options:
 
 1. **⭐ Hybrid Architecture (Recommended)** - [HYBRID_ARCHITECTURE_GUIDE.md](./HYBRID_ARCHITECTURE_GUIDE.md)
-   - Use Supabase for existing CRM features + Node.js/Spring Boot microservice for custom requirements
+   - Use Supabase for existing CRM features + Spring Boot microservice for custom requirements
    - **Fastest**: 8-10 weeks | **Most cost-effective**: ~$27K-32K
    - Best of both worlds: Keep Supabase benefits + Full custom flexibility
-   - **🚀 NEW: [Node.js Setup Guide](./NODEJS_HYBRID_SETUP_GUIDE.md)** - Complete setup instructions
+   - **🚀 NEW: [Spring Boot Setup Guide](./SPRING_BOOT_HYBRID_SETUP_GUIDE.md)** - Complete setup instructions
    - **📝 [Development Workflow](./DEVELOPMENT_WORKFLOW.md)** - Day-to-day development guide
 
 2. **Supabase Only** - [QUICK_START_GUIDE.md](./QUICK_START_GUIDE.md)
@@ -112,7 +112,7 @@ If you need to implement extensive custom requirements, we have comprehensive do
 
 **TL;DR**: For custom lead management, business details, disbursements, and reminders → use **Hybrid Architecture** (saves time and money while maintaining flexibility).
 
-### 🎯 Quick Start with Node.js Hybrid Architecture
+### 🎯 Quick Start with Spring Boot Hybrid Architecture
 
 Ready to start building custom features? Follow these steps:
 
@@ -125,18 +125,17 @@ make install
 # 2. Start Supabase
 make start
 
-# 3. Setup custom Node.js service
-cd crm-custom-service
-npm install
+# 3. Setup custom Spring Boot service
+cd crm-custom-service-spring
 cp .env.example .env
-# Edit .env with your Supabase credentials
-npm run prisma:generate
+# Edit .env with your Supabase JWT secret
+mvn clean install
 
 # 4. Start custom service
-npm run dev
+mvn spring-boot:run
 ```
 
-See **[NODEJS_HYBRID_SETUP_GUIDE.md](./NODEJS_HYBRID_SETUP_GUIDE.md)** for complete instructions.
+See **[SPRING_BOOT_HYBRID_SETUP_GUIDE.md](./SPRING_BOOT_HYBRID_SETUP_GUIDE.md)** for complete instructions.
 
 ## Testing Changes
 

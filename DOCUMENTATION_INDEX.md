@@ -10,7 +10,7 @@ This repository contains comprehensive documentation for implementing custom bus
 
 1. **[README.md](./README.md)** - Project overview and installation
 2. **[IMPLEMENTATION_SUMMARY.md](./IMPLEMENTATION_SUMMARY.md)** - What's been set up and next steps
-3. **[NODEJS_HYBRID_SETUP_GUIDE.md](./NODEJS_HYBRID_SETUP_GUIDE.md)** - Complete setup instructions
+3. **[SPRING_BOOT_HYBRID_SETUP_GUIDE.md](./SPRING_BOOT_HYBRID_SETUP_GUIDE.md)** - Complete setup instructions
 4. **[DEVELOPMENT_WORKFLOW.md](./DEVELOPMENT_WORKFLOW.md)** - How to develop features
 
 ---
@@ -32,12 +32,12 @@ This repository contains comprehensive documentation for implementing custom bus
 | **[IMPLEMENTATION_DOCS_README.md](./IMPLEMENTATION_DOCS_README.md)** | 16 KB | Overview of all implementation approaches | Decision makers |
 | **[IMPLEMENTATION_SUMMARY.md](./IMPLEMENTATION_SUMMARY.md)** ⭐ | 11 KB | Summary of what's been set up | Developers starting work |
 
-### Node.js Hybrid Architecture (⭐ Recommended)
+### Spring Boot Hybrid Architecture (⭐ Recommended)
 
 | File | Size | Purpose | Audience |
 |------|------|---------|----------|
 | **[HYBRID_ARCHITECTURE_GUIDE.md](./HYBRID_ARCHITECTURE_GUIDE.md)** | 41 KB | Hybrid architecture explanation | Architects, developers |
-| **[NODEJS_HYBRID_SETUP_GUIDE.md](./NODEJS_HYBRID_SETUP_GUIDE.md)** ⭐ | 39 KB | Complete setup guide for Node.js approach | Developers |
+| **[SPRING_BOOT_HYBRID_SETUP_GUIDE.md](./SPRING_BOOT_HYBRID_SETUP_GUIDE.md)** ⭐ | 5 KB | Complete setup guide for Spring Boot approach | Developers |
 | **[DEVELOPMENT_WORKFLOW.md](./DEVELOPMENT_WORKFLOW.md)** ⭐ | 13 KB | Day-to-day development workflow | Developers |
 | **[QUICK_REFERENCE.md](./QUICK_REFERENCE.md)** ⭐ | 7 KB | Quick command reference | Developers |
 

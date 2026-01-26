@@ -1,6 +1,6 @@
-# Development Workflow - Hybrid Architecture
+# Development Workflow - Hybrid Architecture (Spring Boot)
 
-This document provides step-by-step instructions for developing features using the hybrid architecture (Supabase + Node.js microservice).
+This document provides step-by-step instructions for developing features using the hybrid architecture (Supabase + Spring Boot microservice).
 
 ## Daily Development Workflow
 
@@ -11,9 +11,9 @@ This document provides step-by-step instructions for developing features using t
 cd /path/to/aarvee-crm-atomic
 make start
 
-# Terminal 2: Start Custom Node.js Service
-cd crm-custom-service
-npm run dev
+# Terminal 2: Start Custom Spring Boot Service
+cd crm-custom-service-spring
+mvn spring-boot:run
 
 # Terminal 3: Start Frontend
 cd /path/to/aarvee-crm-atomic

@@ -1,4 +1,4 @@
-# Quick Reference - Hybrid Architecture
+# Quick Reference - Hybrid Architecture (Spring Boot)
 
 ## 🚀 Essential Commands
 
@@ -8,7 +8,7 @@
 make start
 
 # Terminal 2: Custom Service  
-cd crm-custom-service && npm run dev
+cd crm-custom-service-spring && mvn spring-boot:run
 
 # Terminal 3: Frontend
 npm run dev
@@ -18,7 +18,6 @@ npm run dev
 - Frontend: http://localhost:5173
 - Custom API: http://localhost:3001
 - Supabase Studio: http://localhost:54323
-- Prisma Studio: `cd crm-custom-service && npm run prisma:studio`
 
 ## 📁 Project Structure
 
@@ -29,14 +28,15 @@ aarvee-crm-atomic/
 │       ├── supabase/                       # Supabase provider
 │       ├── custom-service/                 # Custom service provider
 │       └── composite/                      # Routes requests to correct backend
-├── crm-custom-service/                     # Node.js microservice
-│   ├── src/
-│   │   ├── controllers/                    # API endpoints
-│   │   ├── services/                       # Business logic
-│   │   ├── routes/                         # Route definitions
-│   │   ├── middleware/                     # Auth, validation
-│   │   └── config/                         # Configuration
-│   └── prisma/schema.prisma                # Database schema
+├── crm-custom-service-spring/              # Spring Boot microservice
+│   ├── src/main/java/com/aarvee/crm/
+│   │   ├── controller/                     # REST controllers
+│   │   ├── service/                        # Business logic
+│   │   ├── repository/                     # Data access layer
+│   │   ├── entity/                         # JPA entities
+│   │   ├── config/                         # Configuration
+│   │   └── security/                       # JWT authentication
+│   └── pom.xml                             # Maven dependencies
 └── supabase/migrations/                    # Database migrations
 ```
 
@@ -48,31 +48,31 @@ aarvee-crm-atomic/
 
 ### Accessing Data
 - **Supabase tables**: Frontend → Supabase provider → Supabase API
-- **Custom tables**: Frontend → Custom service provider → Node.js API → PostgreSQL
+- **Custom tables**: Frontend → Custom service provider → Spring Boot API → PostgreSQL
 
 ## 🔧 Common Tasks
 
 ### Add a New Custom Feature
 
-1. **Update Prisma schema** (`crm-custom-service/prisma/schema.prisma`)
-2. **Generate client**: `npm run prisma:generate`
-3. **Create migration**: `npx supabase migration new feature_name`
-4. **Apply migration**: `npx supabase db reset`
-5. **Create controller** in `src/controllers/`
-6. **Create routes** in `src/routes/`
+1. **Create entity class** in `entity/` package
+2. **Create repository interface** in `repository/` package
+3. **Create service class** in `service/` package
+4. **Create controller** in `controller/` package
+5. **Create migration**: `npx supabase migration new feature_name`
+6. **Apply migration**: `npx supabase db reset`
 7. **Update composite provider** to include new resource
 
 ### Database Operations
 
 ```bash
-# View database with Prisma Studio
-cd crm-custom-service && npm run prisma:studio
-
 # Create migration
 npx supabase migration new migration_name
 
 # Apply migrations
 npx supabase db reset
+
+# View database with Supabase Studio
+open http://localhost:54323
 
 # Run SQL query
 npx supabase db execute -f script.sql
