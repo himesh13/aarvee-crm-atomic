@@ -172,6 +172,8 @@ npm run prisma:generate
 
 ### "Authentication failed"
 - Check `.env` has correct `SUPABASE_JWT_SECRET`
+  - Local dev: `super-secret-jwt-token-with-at-least-32-characters-long`
+  - Production: Get from Supabase Dashboard → Settings → API → JWT Secret
 - Get fresh token from browser localStorage (`sb-access-token`)
 
 ### "Table does not exist"
@@ -234,7 +236,7 @@ NODE_ENV=development
 PORT=3001
 DATABASE_URL="postgresql://postgres:postgres@localhost:54322/postgres?schema=custom_features"
 SUPABASE_URL=http://localhost:54321
-SUPABASE_JWT_SECRET=your-jwt-secret
+SUPABASE_JWT_SECRET=super-secret-jwt-token-with-at-least-32-characters-long
 CORS_ORIGIN=http://localhost:5173
 ```
 

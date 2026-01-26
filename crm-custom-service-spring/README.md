@@ -27,7 +27,9 @@ Required environment variables:
 - `DATABASE_URL` - PostgreSQL connection URL
 - `DATABASE_USERNAME` - Database username
 - `DATABASE_PASSWORD` - Database password
-- `SUPABASE_JWT_SECRET` - JWT secret from Supabase (get from supabase/config.toml)
+- `SUPABASE_JWT_SECRET` - JWT secret from Supabase
+  - **Local development**: `super-secret-jwt-token-with-at-least-32-characters-long`
+  - **Production**: Get from Supabase Dashboard → Settings → API → JWT Secret
 
 ### 3. Run in Development Mode
 
