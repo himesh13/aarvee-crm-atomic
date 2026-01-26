@@ -80,6 +80,33 @@ To customize Atomic CRM, you will need TypeScript and React programming skills a
 3. [Using Fake Rest Data Provider for Development](./doc/src/content/docs/developers/data-providers.mdx) *(optional)*
 4. [Architecture Decisions](./doc/src/content/docs/developers/architecture-choices.mdx) *(optional)*
 
+## 🗺️ Product Roadmap & Feature Planning
+
+Want to understand the complete feature set and plan your CRM development? We have comprehensive roadmap documentation:
+
+📋 **[ROADMAP_SUMMARY.md](./ROADMAP_SUMMARY.md)** - Quick overview of all planned features
+
+**Roadmap Documentation**:
+- **[ROADMAP.md](./ROADMAP.md)** - Comprehensive feature roadmap with 8 development phases
+- **[FEATURE_TASKS.md](./FEATURE_TASKS.md)** - Detailed breakdown of 50+ tasks with acceptance criteria
+- **[GITHUB_PROJECT_SETUP.md](./GITHUB_PROJECT_SETUP.md)** - Guide for creating GitHub Project Board
+- **[BusinessRequirements.md](./BusinessRequirements.md)** - Original business requirements document
+
+### 🚀 Create Your GitHub Project
+
+We've created an automated script to set up a complete GitHub Project with all feature tasks:
+
+```bash
+# Create GitHub Project with all 50+ feature issues
+./scripts/create-github-project.sh
+
+# Or create just the project (add issues manually)
+./scripts/create-project-only.sh
+```
+
+**Timeline Estimate**: 6-8 months for full implementation  
+**MVP Ready**: 2-3 months (Phase 1 complete)
+
 ## Spring Boot Backend Integration & Custom Requirements
 
 If you need to implement extensive custom requirements, we have comprehensive documentation covering multiple approaches:
