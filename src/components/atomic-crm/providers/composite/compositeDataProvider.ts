@@ -4,6 +4,7 @@ import { customServiceDataProvider } from '../custom-service/customServiceDataPr
 
 // Resources handled by the custom service
 const CUSTOM_RESOURCES = [
+  'leads',
   'lead_extensions',
   'business_details',
   'property_details',

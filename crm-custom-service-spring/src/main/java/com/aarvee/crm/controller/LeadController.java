@@ -12,17 +12,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * REST controller for managing leads through the /api/leads endpoint.
+ * This is an alias for LeadExtension to provide a simpler interface for Phase 1.
+ */
 @RestController
-@RequestMapping("/api/lead_extensions")
+@RequestMapping("/api/leads")
 @RequiredArgsConstructor
-public class LeadExtensionController {
+public class LeadController {
     
     private final LeadExtensionService service;
     
     @PostMapping
-    public ResponseEntity<LeadExtension> create(@RequestBody LeadExtension leadExtension) {
-        // Allow creating leads without contactId for Phase 1 standalone lead form
-        LeadExtension created = service.create(leadExtension);
+    public ResponseEntity<LeadExtension> create(@RequestBody LeadExtension lead) {
+        LeadExtension created = service.create(lead);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
     
@@ -49,9 +52,9 @@ public class LeadExtensionController {
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<LeadExtension> update(@PathVariable Long id, @RequestBody LeadExtension leadExtension) {
+    public ResponseEntity<LeadExtension> update(@PathVariable Long id, @RequestBody LeadExtension lead) {
         try {
-            LeadExtension updated = service.update(id, leadExtension);
+            LeadExtension updated = service.update(id, lead);
             return ResponseEntity.ok(updated);
         } catch (jakarta.persistence.EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
@@ -62,7 +65,7 @@ public class LeadExtensionController {
     public ResponseEntity<Map<String, String>> delete(@PathVariable Long id) {
         service.delete(id);
         Map<String, String> response = new HashMap<>();
-        response.put("message", "Lead extension deleted successfully");
+        response.put("message", "Lead deleted successfully");
         return ResponseEntity.ok(response);
     }
 }

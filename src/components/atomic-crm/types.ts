@@ -224,3 +224,26 @@ export interface ContactGender {
   label: string;
   icon: ComponentType<{ className?: string }>;
 }
+
+export type Product = {
+  name: string;
+  description?: string;
+  active: boolean;
+  created_at: string;
+  updated_at: string;
+} & Pick<RaRecord, "id">;
+
+export type Lead = {
+  contact_id?: Identifier;
+  lead_number: string;
+  customer_name: string;
+  contact_number: string;
+  product: string;
+  loan_amount_required?: number;
+  location?: string;
+  lead_referred_by?: string;
+  short_description?: string;
+  lead_status: string;
+  created_at: string;
+  updated_at: string;
+} & Pick<RaRecord, "id">;

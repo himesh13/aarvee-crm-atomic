@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,17 +22,23 @@ public class LeadExtension {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(name = "contact_id", nullable = false)
+    @Column(name = "contact_id")
     private Long contactId;
     
     @Column(name = "lead_number", unique = true, nullable = false, length = 50)
     private String leadNumber;
     
+    @Column(name = "customer_name", length = 255)
+    private String customerName;
+    
+    @Column(name = "contact_number", length = 50)
+    private String contactNumber;
+    
     @Column(name = "product", length = 255)
     private String product;
     
-    @Column(name = "loan_amount_required")
-    private Long loanAmountRequired;
+    @Column(name = "loan_amount_required", precision = 19, scale = 2)
+    private BigDecimal loanAmountRequired;
     
     @Column(name = "location", length = 500)
     private String location;
