@@ -2,10 +2,10 @@ import {
   ListBase, 
   useListContext,
   RecordContextProvider,
-  TextField,
-  DateField,
   useGetIdentity,
 } from "ra-core";
+import { TextField } from "@/components/admin/text-field";
+import { DateField } from "@/components/admin/date-field";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
