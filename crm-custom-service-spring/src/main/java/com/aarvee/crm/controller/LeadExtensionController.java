@@ -55,7 +55,7 @@ public class LeadExtensionController {
         try {
             LeadExtension updated = service.update(id, leadExtension);
             return ResponseEntity.ok(updated);
-        } catch (RuntimeException e) {
+        } catch (jakarta.persistence.EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
         }
     }

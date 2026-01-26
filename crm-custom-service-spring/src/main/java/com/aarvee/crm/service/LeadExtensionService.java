@@ -2,6 +2,7 @@ package com.aarvee.crm.service;
 
 import com.aarvee.crm.entity.LeadExtension;
 import com.aarvee.crm.repository.LeadExtensionRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -57,7 +58,7 @@ public class LeadExtensionService {
     @Transactional
     public LeadExtension update(Long id, LeadExtension leadExtension) {
         LeadExtension existing = repository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Lead extension not found"));
+            .orElseThrow(() -> new EntityNotFoundException("Lead extension not found with id: " + id));
         
         // Update fields
         if (leadExtension.getProduct() != null) existing.setProduct(leadExtension.getProduct());
@@ -72,13 +73,14 @@ public class LeadExtensionService {
         if (leadExtension.getAutoLoanDetails() != null) existing.setAutoLoanDetails(leadExtension.getAutoLoanDetails());
         if (leadExtension.getMachineryLoanDetails() != null) existing.setMachineryLoanDetails(leadExtension.getMachineryLoanDetails());
         
+        LeadExtension updated = repository.save(existing);
         log.info("Updated lead extension: {}", id);
-        return repository.save(existing);
+        return updated;
     }
     
     @Transactional
     public void delete(Long id) {
-        log.info("Deleted lead extension: {}", id);
         repository.deleteById(id);
+        log.info("Deleted lead extension: {}", id);
     }
 }
