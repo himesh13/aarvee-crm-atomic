@@ -145,6 +145,26 @@ Environment variable in frontend:
 VITE_CUSTOM_SERVICE_URL=http://localhost:3001/api
 ```
 
+### Authentication Flow
+
+1. **Frontend Login**: User logs in via Supabase authentication
+2. **Token Storage**: Supabase stores the JWT access token in the session
+3. **API Requests**: Frontend retrieves the token from Supabase session and includes it in requests:
+   ```typescript
+   Authorization: Bearer <supabase-jwt-token>
+   ```
+4. **Backend Validation**: Spring Boot validates the JWT token using the Supabase JWT secret
+5. **User Context**: Upon successful validation, the user ID from the token is used for authorization
+
+The JWT secret must match between Supabase and the Spring Boot service:
+- **Local**: Default is `super-secret-jwt-token-with-at-least-32-characters-long`
+- **Production**: Get from Supabase Dashboard → Project Settings → API → JWT Secret
+
+If you get a 403 error when accessing API endpoints, check:
+1. The user is logged in (Supabase session exists)
+2. The `SUPABASE_JWT_SECRET` in `.env` matches your Supabase configuration
+3. The frontend `VITE_CUSTOM_SERVICE_URL` points to the correct Spring Boot service URL
+
 ## Development
 
 See the main repository's documentation for complete development workflow.
