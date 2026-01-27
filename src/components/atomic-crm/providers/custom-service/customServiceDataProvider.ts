@@ -1,13 +1,15 @@
 import { DataProvider } from 'ra-core';
+import { supabase } from '../supabase/supabase';
 
 const API_BASE_URL = import.meta.env.VITE_CUSTOM_SERVICE_URL || 'http://localhost:3001/api';
 
-const getAuthToken = () => {
-  return localStorage.getItem('sb-access-token');
+const getAuthToken = async () => {
+  const { data: { session } } = await supabase.auth.getSession();
+  return session?.access_token;
 };
 
 const fetchJson = async (url: string, options: RequestInit = {}) => {
-  const token = getAuthToken();
+  const token = await getAuthToken();
   const headers: HeadersInit = {
     'Content-Type': 'application/json',
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
