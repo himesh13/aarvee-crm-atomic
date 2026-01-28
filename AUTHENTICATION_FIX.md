@@ -2,20 +2,44 @@
 
 ## What Was Fixed
 
-The authentication between the frontend and Spring Boot API was broken because the frontend was trying to retrieve the Supabase JWT token from the wrong location. This has been fixed.
+The authentication between the frontend and Spring Boot API had two issues:
+1. The frontend was trying to retrieve the Supabase JWT token from the wrong location
+2. The implementation included redundant caching that duplicated Supabase's built-in session management
+
+Both have been fixed to follow best practices.
 
 ## Changes Summary
 
-### 1. Frontend Fix (`customServiceDataProvider.ts`)
-- ✅ Now correctly retrieves JWT token from Supabase session using `supabase.auth.getSession()`
-- ✅ Added token caching to improve performance
+### 1. Initial Fix (`customServiceDataProvider.ts`)
+- ✅ Fixed to correctly retrieve JWT token from Supabase session using `supabase.auth.getSession()`
 - ✅ Added error handling for graceful degradation
-- ✅ Prevented race conditions in concurrent requests
 
-### 2. Backend Support (`pom.xml`)
+### 2. Best Practices Update (`customServiceDataProvider.ts`)
+- ✅ Removed redundant module-level caching (`cachedToken`, `tokenExpiresAt`, `tokenRefreshPromise`)
+- ✅ Simplified to rely on Supabase's built-in session management
+- ✅ Fixed logout bug - tokens now cleared immediately when user logs out
+- ✅ Improved cross-tab synchronization - handled by Supabase
+
+### 3. Why This Is Better
+
+**Supabase Already Handles:**
+- Token caching (localStorage + memory)
+- Automatic token refresh
+- Token expiry checking
+- Cross-tab synchronization
+- Clearing tokens on logout
+
+**Benefits:**
+- Simpler, more maintainable code (25 lines vs 60 lines)
+- No logout bugs - tokens properly cleared
+- Works with framework's session management
+- Better cross-tab behavior
+- Follows best practices - don't duplicate framework functionality
+
+### 4. Backend Support (`pom.xml`)
 - ✅ Added `spring-dotenv` dependency to load `.env` files automatically
 
-### 3. Documentation Updates
+### 5. Documentation Updates
 - ✅ Main README now explains the authentication flow
 - ✅ Spring Boot README has detailed troubleshooting steps
 

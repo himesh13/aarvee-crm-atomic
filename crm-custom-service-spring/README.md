@@ -148,13 +148,19 @@ VITE_CUSTOM_SERVICE_URL=http://localhost:3001/api
 ### Authentication Flow
 
 1. **Frontend Login**: User logs in via Supabase authentication
-2. **Token Storage**: Supabase stores the JWT access token in the session
+2. **Token Storage**: Supabase stores the JWT access token in localStorage (automatic)
 3. **API Requests**: Frontend retrieves the token from Supabase session and includes it in requests:
    ```typescript
    Authorization: Bearer <supabase-jwt-token>
    ```
 4. **Backend Validation**: Spring Boot validates the JWT token using the Supabase JWT secret
 5. **User Context**: Upon successful validation, the user ID from the token is used for authorization
+
+**Important Notes:**
+- Supabase automatically handles token caching, refresh, and expiry checking
+- Tokens are automatically cleared on logout (no stale token issues)
+- Cross-tab synchronization is handled by Supabase
+- No additional caching is needed - Supabase's `getSession()` is already fast
 
 The JWT secret must match between Supabase and the Spring Boot service:
 - **Local**: Default is `super-secret-jwt-token-with-at-least-32-characters-long`
