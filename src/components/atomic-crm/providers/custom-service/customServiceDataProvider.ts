@@ -6,6 +6,7 @@ const API_BASE_URL = import.meta.env.VITE_CUSTOM_SERVICE_URL || 'http://localhos
 // Token cache to avoid fetching from Supabase on every request
 let cachedToken: string | null = null;
 let tokenExpiresAt: number | null = null;
+let tokenRefreshPromise: Promise<string | null> | null = null;
 
 const getAuthToken = async () => {
   try {
@@ -16,26 +17,42 @@ const getAuthToken = async () => {
       return cachedToken;
     }
 
-    // Fetch fresh token from Supabase
-    const { data: { session }, error } = await supabase.auth.getSession();
-    
-    if (error || !session?.access_token) {
-      // Clear cache on error
-      cachedToken = null;
-      tokenExpiresAt = null;
-      return null;
+    // If a token refresh is already in progress, wait for it
+    if (tokenRefreshPromise) {
+      return await tokenRefreshPromise;
     }
 
-    // Cache the token and its expiration time
-    cachedToken = session.access_token;
-    tokenExpiresAt = session.expires_at || null;
-    
-    return cachedToken;
+    // Start a new token refresh
+    tokenRefreshPromise = (async () => {
+      try {
+        // Fetch fresh token from Supabase
+        const { data: { session }, error } = await supabase.auth.getSession();
+        
+        if (error || !session?.access_token) {
+          // Clear cache on error
+          cachedToken = null;
+          tokenExpiresAt = null;
+          return null;
+        }
+
+        // Cache the token and its expiration time
+        cachedToken = session.access_token;
+        tokenExpiresAt = session.expires_at || null;
+        
+        return cachedToken;
+      } finally {
+        // Clear the promise once complete
+        tokenRefreshPromise = null;
+      }
+    })();
+
+    return await tokenRefreshPromise;
   } catch (error) {
     // Handle unexpected errors gracefully
     console.error('Failed to retrieve auth token:', error);
     cachedToken = null;
     tokenExpiresAt = null;
+    tokenRefreshPromise = null;
     return null;
   }
 };
