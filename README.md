@@ -95,11 +95,17 @@ cp .env.example .env
 # Install dependencies
 mvn clean install
 
-# Start the custom service (runs on port 8080)
+# Start the custom service (runs on port 3001)
 mvn spring-boot:run
 ```
 
 The Spring Boot service connects to the same PostgreSQL database as Supabase, allowing seamless data integration.
+
+**Important: Authentication Setup**
+- The Spring Boot service validates Supabase JWT tokens for authentication
+- Frontend automatically includes the Supabase JWT token in API requests to the custom service
+- For local development, the JWT secret in `.env` is pre-configured to work with local Supabase
+- For production, update `SUPABASE_JWT_SECRET` in `.env` with your actual Supabase JWT secret from the dashboard
 
 **Database Integration Notes:**
 - Both services use the same Supabase PostgreSQL database
@@ -111,7 +117,7 @@ The Spring Boot service connects to the same PostgreSQL database as Supabase, al
 **Local Service URLs:**
 - Frontend: http://localhost:5173/
 - Supabase API: http://127.0.0.1:54321
-- Spring Boot API: http://localhost:8080
+- Spring Boot API: http://localhost:3001
 - Supabase Dashboard: http://localhost:54323/
 
 See **[AGENTS.md](./AGENTS.md)** for detailed development workflow, architecture patterns, and customization guide. For Spring Boot service details, see **[crm-custom-service-spring/README.md](./crm-custom-service-spring/README.md)**.

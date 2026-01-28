@@ -1,13 +1,37 @@
 import { DataProvider } from 'ra-core';
+import { supabase } from '../supabase/supabase';
 
 const API_BASE_URL = import.meta.env.VITE_CUSTOM_SERVICE_URL || 'http://localhost:3001/api';
 
-const getAuthToken = () => {
-  return localStorage.getItem('sb-access-token');
+/**
+ * Retrieves the authentication token from Supabase session.
+ * 
+ * Note: We rely on Supabase's built-in session management which already handles:
+ * - Token caching (localStorage + memory)
+ * - Automatic token refresh
+ * - Token expiry checking
+ * - Cross-tab synchronization
+ * - Clearing tokens on logout
+ * 
+ * getSession() is fast (reads from cache, not network) so no additional caching is needed.
+ */
+const getAuthToken = async () => {
+  try {
+    const { data: { session }, error } = await supabase.auth.getSession();
+    
+    if (error || !session?.access_token) {
+      return null;
+    }
+    
+    return session.access_token;
+  } catch (error) {
+    console.error('Failed to retrieve auth token:', error);
+    return null;
+  }
 };
 
 const fetchJson = async (url: string, options: RequestInit = {}) => {
-  const token = getAuthToken();
+  const token = await getAuthToken();
   const headers: HeadersInit = {
     'Content-Type': 'application/json',
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
