@@ -3,9 +3,41 @@ import { supabase } from '../supabase/supabase';
 
 const API_BASE_URL = import.meta.env.VITE_CUSTOM_SERVICE_URL || 'http://localhost:3001/api';
 
+// Token cache to avoid fetching from Supabase on every request
+let cachedToken: string | null = null;
+let tokenExpiresAt: number | null = null;
+
 const getAuthToken = async () => {
-  const { data: { session } } = await supabase.auth.getSession();
-  return session?.access_token;
+  try {
+    // Check if we have a cached token that hasn't expired
+    const now = Date.now() / 1000; // Convert to seconds
+    if (cachedToken && tokenExpiresAt && now < tokenExpiresAt - 60) {
+      // Return cached token if it's still valid (with 60s buffer)
+      return cachedToken;
+    }
+
+    // Fetch fresh token from Supabase
+    const { data: { session }, error } = await supabase.auth.getSession();
+    
+    if (error || !session?.access_token) {
+      // Clear cache on error
+      cachedToken = null;
+      tokenExpiresAt = null;
+      return null;
+    }
+
+    // Cache the token and its expiration time
+    cachedToken = session.access_token;
+    tokenExpiresAt = session.expires_at || null;
+    
+    return cachedToken;
+  } catch (error) {
+    // Handle unexpected errors gracefully
+    console.error('Failed to retrieve auth token:', error);
+    cachedToken = null;
+    tokenExpiresAt = null;
+    return null;
+  }
 };
 
 const fetchJson = async (url: string, options: RequestInit = {}) => {
