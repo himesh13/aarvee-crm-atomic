@@ -1,4 +1,4 @@
-import { DataProvider } from 'ra-core';
+import type { DataProvider } from 'ra-core';
 import { dataProvider as supabaseDataProvider } from '../supabase/dataProvider';
 import { customServiceDataProvider } from '../custom-service/customServiceDataProvider';
 

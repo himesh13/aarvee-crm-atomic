@@ -5,8 +5,9 @@ import {
   type AuthProvider,
   type DataProvider,
 } from "ra-core";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { Route } from "react-router";
+import { QueryClient } from "@tanstack/react-query";
 import { Admin } from "@/components/admin/admin";
 import { ForgotPasswordPage } from "@/components/supabase/forgot-password-page";
 import { SetPasswordPage } from "@/components/supabase/set-password-page";
@@ -104,6 +105,31 @@ export const CRM = ({
   disableTelemetry,
   ...rest
 }: CRMProps) => {
+  // Configure QueryClient with appropriate timeouts and retry logic
+  const queryClient = useMemo(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 5 * 60 * 1000, // 5 minutes
+            retry: (failureCount, error) => {
+              // Don't retry on 4xx errors (client errors)
+              if (error instanceof Error && error.message.includes('HTTP error! status: 4')) {
+                return false;
+              }
+              // Retry up to 2 times for other errors (network, timeout, 5xx)
+              return failureCount < 2;
+            },
+            retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 10000), // Exponential backoff: 1s, 2s, 4s, max 10s
+          },
+          mutations: {
+            retry: false, // Don't retry mutations to avoid duplicate operations
+          },
+        },
+      }),
+    [],
+  );
+
   useEffect(() => {
     if (
       disableTelemetry ||
@@ -134,6 +160,7 @@ export const CRM = ({
       <Admin
         dataProvider={dataProvider}
         authProvider={authProvider}
+        queryClient={queryClient}
         store={localStorageStore(undefined, "CRM")}
         layout={Layout}
         loginPage={StartPage}
