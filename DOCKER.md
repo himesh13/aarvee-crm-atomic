@@ -12,12 +12,24 @@ This guide explains how to run the entire Aarvee CRM stack using Docker for simp
 
 ### One-Command Setup
 
+**Using Make (recommended):**
+
 ```bash
 # Install dependencies (only needed once)
 make docker-install
 
 # Start everything with Docker
 make docker-start
+```
+
+**Using Shell Scripts (alternative):**
+
+```bash
+# Start everything
+./docker-start.sh
+
+# Stop everything
+./docker-stop.sh
 ```
 
 This single command will:
@@ -81,7 +93,7 @@ The frontend container uses volume mounts for hot reload. Simply edit files in t
 
 #### Spring Boot Changes
 1. Make changes to the Spring Boot code in `crm-custom-service-spring/`
-2. Rebuild the Spring Boot container: `docker-compose up -d --build spring-service`
+2. Rebuild the Spring Boot container: `docker compose up -d --build spring-service`
 3. Or restart everything: `make docker-restart`
 
 ### Viewing Logs
@@ -152,7 +164,7 @@ npx supabase start
 Check if the Spring Boot service is healthy:
 
 ```bash
-docker-compose ps
+docker compose ps
 curl http://localhost:3001/health
 ```
 
@@ -242,6 +254,6 @@ make docker-start
 
 For issues or questions:
 1. Check logs: `make docker-logs`
-2. Check service status: `docker-compose ps`
+2. Check service status: `docker compose ps`
 3. Check Supabase status: `npx supabase status`
 4. Review the main README.md for additional context

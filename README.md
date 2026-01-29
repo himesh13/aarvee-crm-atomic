@@ -28,7 +28,6 @@ The easiest way to run the entire stack is using Docker. This method requires mi
 **Prerequisites:**
 - Docker Desktop (or Docker Engine + Docker Compose)
 - Node 22 LTS
-- Make
 
 **Quick Start:**
 
@@ -39,9 +38,11 @@ cd atomic-crm
 
 # Install dependencies (one-time setup)
 make docker-install
+# OR: npm install
 
 # Start everything with one command
 make docker-start
+# OR: ./docker-start.sh
 ```
 
 This will start:

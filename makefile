@@ -99,7 +99,7 @@ docker-start: ## Start the entire stack using Docker Compose (Supabase + Fronten
 	@echo "\nWaiting for Supabase to be ready..."
 	@sleep 5
 	@echo "\nStarting Docker containers (Frontend + Spring Boot)..."
-	@docker-compose up -d
+	@docker compose up -d
 	@echo "\n✅ All services started!"
 	@echo "\nAccess the application at:"
 	@echo "  - Frontend: http://localhost:5173"
@@ -111,7 +111,7 @@ docker-start: ## Start the entire stack using Docker Compose (Supabase + Fronten
 
 docker-stop: ## Stop all Docker containers and Supabase
 	@echo "Stopping Docker containers..."
-	@docker-compose down
+	@docker compose down
 	@echo "Stopping Supabase..."
 	@npx supabase stop
 	@echo "✅ All services stopped!"
@@ -119,20 +119,20 @@ docker-stop: ## Stop all Docker containers and Supabase
 docker-restart: docker-stop docker-start ## Restart all Docker services
 
 docker-logs: ## View logs from all Docker containers
-	@docker-compose logs -f
+	@docker compose logs -f
 
 docker-logs-frontend: ## View frontend logs
-	@docker-compose logs -f frontend
+	@docker compose logs -f frontend
 
 docker-logs-spring: ## View Spring Boot logs
-	@docker-compose logs -f spring-service
+	@docker compose logs -f spring-service
 
 docker-build: ## Rebuild Docker images
-	@docker-compose build
+	@docker compose build
 
 docker-clean: docker-stop ## Clean up Docker resources
 	@echo "Removing Docker containers and images..."
-	@docker-compose down -v --rmi local
+	@docker compose down -v --rmi local
 	@echo "✅ Docker resources cleaned!"
 
 docker-install: ## Install dependencies for Docker setup
