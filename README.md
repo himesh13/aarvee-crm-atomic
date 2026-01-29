@@ -21,11 +21,55 @@ Atomic CRM is free and open-source. You can test it online at https://marmelab.c
 
 ## Installation
 
-To run this project locally, you will need the following tools installed on your computer:
+### Option 1: Docker Setup (Recommended - Simplest)
+
+The easiest way to run the entire stack is using Docker. This method requires minimal setup and handles all services automatically.
+
+**Prerequisites:**
+- Docker Desktop (or Docker Engine + Docker Compose)
+- Node 22 LTS
+
+**Quick Start:**
+
+```sh
+# Clone the repository
+git clone https://github.com/[username]/atomic-crm.git
+cd atomic-crm
+
+# Install dependencies (one-time setup)
+make docker-install
+# OR: npm install
+
+# Start everything with one command
+make docker-start
+# OR: ./docker-start.sh
+```
+
+This will start:
+- ✅ Supabase (PostgreSQL, REST API, Auth, Storage)
+- ✅ Spring Boot custom service
+- ✅ React frontend with hot reload
+
+Access the application at [http://localhost:5173/](http://localhost:5173/)
+
+For detailed Docker documentation, see [DOCKER.md](./DOCKER.md).
+
+**Docker Commands:**
+```sh
+make docker-start     # Start all services
+make docker-stop      # Stop all services
+make docker-logs      # View logs
+make docker-restart   # Restart all services
+```
+
+### Option 2: Traditional Setup (Manual)
+
+To run this project locally without Docker for the frontend and Spring Boot (Supabase still uses Docker internally), you will need the following tools installed on your computer:
 
 - Make
 - Node 22 LTS
 - Docker (required by Supabase)
+- Java 17+ and Maven 3.6+ (for Spring Boot service)
 
 Fork the [`marmelab/atomic-crm`](https://github.com/marmelab/atomic-crm) repository to your user/organization, then clone it locally:
 
@@ -67,19 +111,13 @@ This CRM follows a **hybrid architecture** approach:
 - **Spring Boot**: Custom microservice for business-specific requirements and extensions
 - **Shared PostgreSQL Database**: Both services connect to the same Supabase PostgreSQL instance
 
-### Setting Up the Hybrid Architecture
+### Docker Setup (Recommended)
 
-#### 1. Start the Core CRM (Supabase + Node.js)
+If you used the Docker setup above (`make docker-start`), all services including Spring Boot are already running! Skip to the next section.
 
-The core CRM is already set up above with `make start`. This handles:
-- Contact management
-- Company management
-- Deal pipeline
-- Task tracking
-- Note management
-- Email capture
+### Manual Spring Boot Setup
 
-#### 2. Add Custom Features with Spring Boot
+If you're using the traditional setup and want to run the Spring Boot service manually:
 
 For custom business requirements (e.g., custom fields, workflows, integrations):
 
