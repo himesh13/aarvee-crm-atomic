@@ -140,3 +140,6 @@ docker-install: ## Install dependencies for Docker setup
 	@npm install
 	@echo "Maven dependencies will be installed during Docker build"
 	@echo "✅ Dependencies ready!"
+
+docker-verify: ## Verify Docker setup is working correctly
+	@./docker-verify.sh

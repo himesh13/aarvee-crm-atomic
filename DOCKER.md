@@ -47,19 +47,36 @@ Once started, you can access:
 - **Supabase API**: http://localhost:54321
 - **Inbucket (Email Testing)**: http://localhost:54324
 
+### Verify Everything is Working
+
+To check if all services are running correctly:
+
+```bash
+make docker-verify
+# OR
+./docker-verify.sh
+```
+
+This will verify:
+- ✅ Docker is running
+- ✅ Supabase is running
+- ✅ Docker containers are running
+- ✅ Services are responding on expected ports
+
 ## Available Docker Commands
 
 All Docker-related commands are available via the Makefile:
 
 ```bash
-make docker-start        # Start all services
-make docker-stop         # Stop all services
-make docker-restart      # Restart all services
-make docker-logs         # View all logs
-make docker-logs-frontend    # View frontend logs only
-make docker-logs-spring      # View Spring Boot logs only
-make docker-build        # Rebuild Docker images
-make docker-clean        # Clean up Docker resources
+make docker-start           # Start all services
+make docker-stop            # Stop all services
+make docker-restart         # Restart all services
+make docker-verify          # Verify setup is working
+make docker-logs            # View all logs
+make docker-logs-frontend   # View frontend logs only
+make docker-logs-spring     # View Spring Boot logs only
+make docker-build           # Rebuild Docker images
+make docker-clean           # Clean up Docker resources
 ```
 
 ## Architecture
