@@ -1,0 +1,66 @@
+# Node modules
+node_modules
+npm-debug.log
+package-lock.json
+
+# Build outputs
+dist
+build
+.cache
+
+# Development files
+.git
+.github
+.gitignore
+.env.local
+.env.production
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE files
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Documentation
+doc/node_modules
+doc/dist
+*.md
+
+# Test files
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+coverage
+
+# Docker files
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Supabase (managed separately)
+supabase/.temp
+.supabase
+
+# Temporary files
+tmp
+temp
+*.log
+
+# Demo files
+demo
+
+# Scripts
+scripts
+
+# Registry
+registry.json
+public/r

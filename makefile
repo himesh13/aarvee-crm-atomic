@@ -91,3 +91,52 @@ registry-deploy: registry-build ## Deploy the shadcn registry (Automatically don
 registry-gen: ## Generate the shadcn registry (ran automatically by a pre-commit hook)
 	npm run registry:gen
 	npx prettier --config ./.prettierrc.json --write "registry.json"
+
+# Docker commands
+docker-start: ## Start the entire stack using Docker Compose (Supabase + Frontend + Spring Boot)
+	@echo "Starting Supabase..."
+	@npx supabase start
+	@echo "\nWaiting for Supabase to be ready..."
+	@sleep 5
+	@echo "\nStarting Docker containers (Frontend + Spring Boot)..."
+	@docker-compose up -d
+	@echo "\n✅ All services started!"
+	@echo "\nAccess the application at:"
+	@echo "  - Frontend: http://localhost:5173"
+	@echo "  - Spring Boot API: http://localhost:3001"
+	@echo "  - Supabase Dashboard: http://localhost:54323"
+	@echo "  - Supabase API: http://localhost:54321"
+	@echo "\nTo view logs: make docker-logs"
+	@echo "To stop all services: make docker-stop"
+
+docker-stop: ## Stop all Docker containers and Supabase
+	@echo "Stopping Docker containers..."
+	@docker-compose down
+	@echo "Stopping Supabase..."
+	@npx supabase stop
+	@echo "✅ All services stopped!"
+
+docker-restart: docker-stop docker-start ## Restart all Docker services
+
+docker-logs: ## View logs from all Docker containers
+	@docker-compose logs -f
+
+docker-logs-frontend: ## View frontend logs
+	@docker-compose logs -f frontend
+
+docker-logs-spring: ## View Spring Boot logs
+	@docker-compose logs -f spring-service
+
+docker-build: ## Rebuild Docker images
+	@docker-compose build
+
+docker-clean: docker-stop ## Clean up Docker resources
+	@echo "Removing Docker containers and images..."
+	@docker-compose down -v --rmi local
+	@echo "✅ Docker resources cleaned!"
+
+docker-install: ## Install dependencies for Docker setup
+	@echo "Installing Node.js dependencies..."
+	@npm install
+	@echo "Maven dependencies will be installed during Docker build"
+	@echo "✅ Dependencies ready!"

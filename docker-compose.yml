@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  # Frontend - React + Vite
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: aarvee-crm-frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      # Mount source code for hot reload
+      - ./src:/app/src
+      - ./index.html:/app/index.html
+      - ./vite.config.ts:/app/vite.config.ts
+      - ./public:/app/public
+      # Exclude node_modules from being overwritten
+      - /app/node_modules
+    environment:
+      - VITE_SUPABASE_URL=http://localhost:54321
+      - VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0
+      - VITE_IS_DEMO=false
+      - VITE_INBOUND_EMAIL=2aff30e603e54dc3eb556bd9e03ee099@inbound.postmarkapp.com
+      - VITE_CUSTOM_SERVICE_URL=http://localhost:3001/api
+      - SKIP_PREFLIGHT_CHECK=true
+    depends_on:
+      - spring-service
+    networks:
+      - aarvee-crm-network
+    extra_hosts:
+      # Allow frontend to access host machine's Supabase
+      - "host.docker.internal:host-gateway"
+
+  # Spring Boot Custom Service
+  spring-service:
+    build:
+      context: ./crm-custom-service-spring
+      dockerfile: Dockerfile
+    container_name: aarvee-crm-spring-service
+    ports:
+      - "3001:3001"
+    environment:
+      - DATABASE_URL=jdbc:postgresql://host.docker.internal:54322/postgres
+      - DATABASE_USERNAME=postgres
+      - DATABASE_PASSWORD=postgres
+      - SUPABASE_JWT_SECRET=super-secret-jwt-token-with-at-least-32-characters-long
+      - PORT=3001
+      - HOST=0.0.0.0
+      - CORS_ALLOWED_ORIGINS=http://localhost:5173,http://frontend:5173
+      - LOG_LEVEL=INFO
+      - SHOW_SQL=false
+      - SPRING_PROFILES_ACTIVE=development
+    networks:
+      - aarvee-crm-network
+    extra_hosts:
+      # Allow Spring Boot to access host machine's Supabase
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3001/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  aarvee-crm-network:
+    driver: bridge

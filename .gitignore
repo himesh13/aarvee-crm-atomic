@@ -37,3 +37,7 @@ dist/
 
 # Shadcn Registry
 public/r/
+
+# Docker
+.docker/
+docker-compose.override.yml
