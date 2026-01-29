@@ -187,6 +187,21 @@ Atomic CRM components are published as a Shadcn Registry file:
 > [!WARNING]  
 > If the `registry.json` misses some changes you made, you MUST update the `scripts/generate-registry.mjs` to include those changes.
 
+## Troubleshooting
+
+If you encounter issues like:
+- 504 "Outdated Optimize Dep" errors
+- Infinite spinner or request timeouts
+- Build failures
+- Connection issues
+
+See the [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) guide for detailed solutions.
+
+**Quick fix for Vite cache issues:**
+```bash
+npm run dev:clean
+```
+
 ## License
 
 This project is licensed under the MIT License, courtesy of [Marmelab](https://marmelab.com). See the [LICENSE.md](./LICENSE.md) file for details.

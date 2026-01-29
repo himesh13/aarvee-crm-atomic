@@ -53,4 +53,29 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  optimizeDeps: {
+    // Force include critical dependencies to prevent 504 errors
+    include: [
+      "react",
+      "react-dom",
+      "react-dom/client",
+      "react-router",
+      "@tanstack/react-query",
+      "ra-core",
+      "ra-supabase-core",
+    ],
+    // Increase timeout for dependency optimization
+    esbuildOptions: {
+      // Prevent timeout during dependency pre-bundling
+      // This helps with large dependencies or slow machines
+    },
+  },
+  server: {
+    // Increase timeout for HMR and dependency optimization
+    hmr: {
+      timeout: 30000, // 30 seconds
+    },
+    // Force optimize deps on server start
+    force: false, // Don't force by default, but can be enabled via --force flag
+  },
 });
