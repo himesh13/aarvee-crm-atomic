@@ -13,21 +13,44 @@ This error appears in the browser console when Vite's dependency optimization ca
 
 **Solution:**
 
-1. **Quick Fix - Clear Vite Cache:**
+1. **Quick Fix - Clear Vite Cache (Cross-Platform):**
    ```bash
    npm run dev:clean
    ```
-   This will remove the `.vite` cache directory and restart with fresh optimization.
+   This works on all platforms (Windows, Mac, Linux) and clears the `.vite` cache directory before restarting.
 
 2. **Alternative - Manual Cache Clear:**
+   
+   **On Linux/Mac:**
    ```bash
    rm -rf node_modules/.vite
    npm run dev
    ```
+   
+   **On Windows (PowerShell):**
+   ```powershell
+   Remove-Item -Recurse -Force node_modules\.vite -ErrorAction SilentlyContinue
+   npm run dev
+   ```
+   
+   **On Windows (Command Prompt):**
+   ```cmd
+   rmdir /s /q node_modules\.vite
+   npm run dev
+   ```
 
 3. **Full Clean (if above doesn't work):**
+   
+   **On Linux/Mac:**
    ```bash
    rm -rf node_modules node_modules/.vite
+   npm install
+   npm run dev
+   ```
+   
+   **On Windows (PowerShell):**
+   ```powershell
+   Remove-Item -Recurse -Force node_modules -ErrorAction SilentlyContinue
    npm install
    npm run dev
    ```
@@ -121,8 +144,16 @@ fails with errors
    Fix linting errors or use `npm run lint:apply` to auto-fix.
 
 3. **Clean Build:**
+   
+   **On Linux/Mac:**
    ```bash
    rm -rf dist node_modules/.vite
+   npm run build
+   ```
+   
+   **On Windows (PowerShell):**
+   ```powershell
+   Remove-Item -Recurse -Force dist, node_modules\.vite -ErrorAction SilentlyContinue
    npm run build
    ```
 

@@ -10,9 +10,19 @@ export const supabase = createClient(
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
         
+        // Merge signals if caller provided one
+        const signal = options.signal
+          ? (() => {
+              // Listen to both signals
+              const originalSignal = options.signal as AbortSignal;
+              originalSignal.addEventListener('abort', () => controller.abort());
+              return controller.signal;
+            })()
+          : controller.signal;
+        
         return fetch(url, {
           ...options,
-          signal: controller.signal,
+          signal,
         }).finally(() => clearTimeout(timeoutId));
       },
     },

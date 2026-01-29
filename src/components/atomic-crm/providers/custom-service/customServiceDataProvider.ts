@@ -56,9 +56,15 @@ const fetchJson = async (url: string, options: RequestInit = {}) => {
   } catch (error) {
     // Handle timeout and network errors
     if (error instanceof Error) {
+      // Re-throw HTTP errors as-is (they already have good messages)
+      if (error.message.startsWith('HTTP error!')) {
+        throw error;
+      }
+      // Handle timeout errors with descriptive message
       if (error.name === 'AbortError') {
         throw new Error(`Request timeout: The custom service at ${API_BASE_URL} did not respond within ${REQUEST_TIMEOUT / 1000} seconds. Please check if the service is running.`);
       }
+      // Wrap other network errors
       throw new Error(`Network error: ${error.message}`);
     }
     throw error;
