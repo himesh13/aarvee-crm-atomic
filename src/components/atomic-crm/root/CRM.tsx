@@ -5,8 +5,9 @@ import {
   type AuthProvider,
   type DataProvider,
 } from "ra-core";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { Route } from "react-router";
+import { QueryClient, QueryCache, MutationCache } from "@tanstack/react-query";
 import { Admin } from "@/components/admin/admin";
 import { ForgotPasswordPage } from "@/components/supabase/forgot-password-page";
 import { SetPasswordPage } from "@/components/supabase/set-password-page";
@@ -104,6 +105,54 @@ export const CRM = ({
   disableTelemetry,
   ...rest
 }: CRMProps) => {
+  // Configure QueryClient with appropriate timeouts and retry logic
+  const queryClient = useMemo(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 5 * 60 * 1000, // 5 minutes
+            gcTime: 10 * 60 * 1000, // 10 minutes (formerly cacheTime)
+            retry: (failureCount, error) => {
+              // Don't retry on 4xx errors (client errors)
+              if (error instanceof Error && error.message.includes('HTTP error! status: 4')) {
+                return false;
+              }
+              // Don't retry on timeout errors after first attempt
+              if (error instanceof Error && (error.message.includes('timeout') || error.message.includes('AbortError'))) {
+                return failureCount < 1;
+              }
+              // Retry up to 2 times for other errors (network, 5xx)
+              return failureCount < 2;
+            },
+            retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 10000), // Exponential backoff: 1s, 2s, 4s, max 10s
+          },
+          mutations: {
+            retry: false, // Don't retry mutations to avoid duplicate operations
+          },
+        },
+        queryCache: new QueryCache({
+          onError: (error, query) => {
+            // Log errors for debugging
+            console.error('Query error:', {
+              error: error instanceof Error ? error.message : String(error),
+              queryKey: query.queryKey,
+            });
+          },
+        }),
+        mutationCache: new MutationCache({
+          onError: (error, _variables, _context, mutation) => {
+            // Log mutation errors for debugging
+            console.error('Mutation error:', {
+              error: error instanceof Error ? error.message : String(error),
+              mutationKey: mutation.options.mutationKey,
+            });
+          },
+        }),
+      }),
+    [],
+  );
+
   useEffect(() => {
     if (
       disableTelemetry ||
@@ -134,6 +183,7 @@ export const CRM = ({
       <Admin
         dataProvider={dataProvider}
         authProvider={authProvider}
+        queryClient={queryClient}
         store={localStorageStore(undefined, "CRM")}
         layout={Layout}
         loginPage={StartPage}

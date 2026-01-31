@@ -53,4 +53,22 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  optimizeDeps: {
+    // Force include critical dependencies to prevent 504 errors
+    include: [
+      "react",
+      "react-dom",
+      "react-dom/client",
+      "react-router",
+      "@tanstack/react-query",
+      "ra-core",
+      "ra-supabase-core",
+    ],
+  },
+  server: {
+    // Increase timeout for HMR and dependency optimization
+    hmr: {
+      timeout: 30000, // 30 seconds
+    },
+  },
 });

@@ -1,7 +1,9 @@
-import { DataProvider } from 'ra-core';
+import type { DataProvider } from 'ra-core';
 import { supabase } from '../supabase/supabase';
+import { fetchWithTimeout } from '../../misc/fetchWithTimeout';
 
 const API_BASE_URL = import.meta.env.VITE_CUSTOM_SERVICE_URL || 'http://localhost:3001/api';
+const REQUEST_TIMEOUT = 30000; // 30 seconds timeout for API requests
 
 /**
  * Retrieves the authentication token from Supabase session.
@@ -38,14 +40,35 @@ const fetchJson = async (url: string, options: RequestInit = {}) => {
     ...(options.headers as HeadersInit),
   };
 
-  const response = await fetch(url, { ...options, headers });
-  
-  if (!response.ok) {
-    const error = await response.json().catch(() => ({ error: response.statusText }));
-    throw new Error(error.error || `HTTP error! status: ${response.status}`);
+  try {
+    const response = await fetchWithTimeout(url, { 
+      ...options, 
+      headers,
+      timeout: REQUEST_TIMEOUT 
+    });
+    
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ error: response.statusText }));
+      throw new Error(error.error || `HTTP error! status: ${response.status}`);
+    }
+    
+    return response.json();
+  } catch (error) {
+    // Handle timeout and network errors
+    if (error instanceof Error) {
+      // Re-throw HTTP errors as-is (they already have good messages)
+      if (error.message.startsWith('HTTP error!')) {
+        throw error;
+      }
+      // Handle timeout errors with descriptive message
+      if (error.name === 'AbortError') {
+        throw new Error(`Request timeout: The custom service at ${API_BASE_URL} did not respond within ${REQUEST_TIMEOUT / 1000} seconds. Please check if the service is running.`);
+      }
+      // Wrap other network errors
+      throw new Error(`Network error: ${error.message}`);
+    }
+    throw error;
   }
-  
-  return response.json();
 };
 
 export const customServiceDataProvider: DataProvider = {
