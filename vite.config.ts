@@ -60,6 +60,7 @@ export default defineConfig({
       "react-dom",
       "react-dom/client",
       "react-router",
+      "react-router-dom",
       "@tanstack/react-query",
       "ra-core",
       "ra-supabase-core",
