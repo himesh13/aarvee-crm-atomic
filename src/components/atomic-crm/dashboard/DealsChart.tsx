@@ -28,7 +28,7 @@ export const DealsChart = memo(() => {
   const { data, isPending } = useGetList<Deal>("deals", {
     pagination: { perPage: 100, page: 1 },
     sort: {
-      field: "created_at",
+      field: "createdAt",
       order: "ASC",
     },
     filter: {

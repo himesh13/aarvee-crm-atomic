@@ -21,6 +21,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { mapSortField } from "@/components/atomic-crm/utils/sortMapper";
 
 type ButtonProps = React.ComponentProps<typeof Button>;
 
@@ -63,8 +64,9 @@ const SortButtonComponent = (props: SortButtonProps) => {
   const [open, setOpen] = React.useState(false);
 
   const handleChangeSort = (field: string) => {
+    const mappedField = mapSortField(field);
     setSort({
-      field,
+      field: mappedField,
       order: field === sort.field ? inverseOrder(sort.order) : "ASC",
     });
     setOpen(false);

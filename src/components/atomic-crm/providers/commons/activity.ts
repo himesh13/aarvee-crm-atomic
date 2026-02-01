@@ -61,7 +61,7 @@ const getNewCompanies = async (
   const { data: companies } = await dataProvider.getList<Company>("companies", {
     filter,
     pagination: { page: 1, perPage: 250 },
-    sort: { field: "created_at", order: "DESC" },
+    sort: { field: "createdAt", order: "DESC" },
   });
   return companies.map((company) => ({
     id: `company.${company.id}.created`,
@@ -130,7 +130,7 @@ async function getNewDealsAndNotes(
   const { data: deals } = await dataProvider.getList<Deal>("deals", {
     filter,
     pagination: { page: 1, perPage: 250 },
-    sort: { field: "created_at", order: "DESC" },
+    sort: { field: "createdAt", order: "DESC" },
   });
 
   const recentDealNotesFilter = {} as any;

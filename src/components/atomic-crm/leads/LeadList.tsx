@@ -19,7 +19,7 @@ export const LeadList = () => {
   return (
     <ListBase
       perPage={25}
-      sort={{ field: "created_at", order: "DESC" }}
+      sort={{ field: "createdAt", order: "DESC" }}
     >
       <div className="flex flex-col gap-4 p-4">
         <div className="flex justify-between items-center">

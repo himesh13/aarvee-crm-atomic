@@ -3,6 +3,7 @@ package com.aarvee.crm.controller;
 import com.aarvee.crm.dto.PageResponse;
 import com.aarvee.crm.entity.LeadExtension;
 import com.aarvee.crm.service.LeadExtensionService;
+import com.aarvee.crm.util.SortParamMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -30,13 +31,21 @@ public class LeadController {
     }
     
     @GetMapping
-    public ResponseEntity<PageResponse<LeadExtension>> getList(
+    public ResponseEntity<?> getList(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int perPage,
             @RequestParam(defaultValue = "createdAt") String sortField,
             @RequestParam(defaultValue = "desc") String sortOrder) {
-        
-        Page<LeadExtension> pageData = service.getList(page, perPage, sortField, sortOrder);
+
+        String mapped = SortParamMapper.map(sortField);
+        if (mapped == null) {
+            Map<String, Object> error = new HashMap<>();
+            error.put("error", "Invalid sort field");
+            error.put("allowed", String.join(", ", SortParamMapper.ALLOWED_FIELDS()));
+            return ResponseEntity.badRequest().body(error);
+        }
+
+        Page<LeadExtension> pageData = service.getList(page, perPage, mapped, sortOrder);
         PageResponse<LeadExtension> response = new PageResponse<>(
             pageData.getContent(),
             pageData.getTotalElements()

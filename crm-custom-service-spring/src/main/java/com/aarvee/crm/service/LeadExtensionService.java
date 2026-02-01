@@ -2,6 +2,7 @@ package com.aarvee.crm.service;
 
 import com.aarvee.crm.entity.LeadExtension;
 import com.aarvee.crm.repository.LeadExtensionRepository;
+import com.aarvee.crm.util.SortParamMapper;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +23,7 @@ import java.util.Optional;
 public class LeadExtensionService {
     
     private final LeadExtensionRepository repository;
-    
+
     /**
      * Generate a unique lead number
      */
@@ -44,10 +45,17 @@ public class LeadExtensionService {
         log.info("Creating lead extension: {}", leadExtension.getLeadNumber());
         return repository.save(leadExtension);
     }
-    
+
     public Page<LeadExtension> getList(int page, int perPage, String sortField, String sortOrder) {
+        String normalized = SortParamMapper.map(sortField);
+        if (normalized == null) {
+            // default to createdAt to avoid PropertyReferenceException
+            normalized = "createdAt";
+            log.warn("Client requested invalid sort field: {}. Falling back to {}", sortField, normalized);
+        }
+
         Sort.Direction direction = "desc".equalsIgnoreCase(sortOrder) ? Sort.Direction.DESC : Sort.Direction.ASC;
-        Pageable pageable = PageRequest.of(page - 1, perPage, Sort.by(direction, sortField));
+        Pageable pageable = PageRequest.of(page - 1, perPage, Sort.by(direction, normalized));
         return repository.findAll(pageable);
     }
     

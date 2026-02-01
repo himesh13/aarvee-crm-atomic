@@ -24,7 +24,7 @@ import {
   authProvider as defaultAuthProvider,
   dataProvider as defaultDataProvider,
 } from "../providers/supabase";
-import sales from "../sales";
+    import sales from "../sales";
 import { SettingsPage } from "../settings/SettingsPage";
 import type { ConfigurationContextValue } from "./ConfigurationContext";
 import { ConfigurationProvider } from "./ConfigurationContext";

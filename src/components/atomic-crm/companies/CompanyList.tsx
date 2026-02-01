@@ -46,7 +46,7 @@ const CompanyListLayout = () => {
 const CompanyListActions = () => {
   return (
     <TopToolbar>
-      <SortButton fields={["name", "created_at", "nb_contacts"]} />
+      <SortButton fields={["name", "createdAt", "nb_contacts"]} />
       <ExportButton />
       <CreateButton label="New Company" />
     </TopToolbar>

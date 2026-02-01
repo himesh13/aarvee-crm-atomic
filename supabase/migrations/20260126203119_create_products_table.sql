@@ -27,6 +27,15 @@ CREATE POLICY "Authenticated users can update products" ON public.products
 CREATE POLICY "Authenticated users can delete products" ON public.products
   FOR DELETE USING (auth.role() = 'authenticated');
 
+-- Create function to update updated_at timestamp
+CREATE OR REPLACE FUNCTION public.set_updated_at()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = NOW();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
 -- Create trigger for updated_at
 CREATE TRIGGER update_products_updated_at 
   BEFORE UPDATE ON public.products

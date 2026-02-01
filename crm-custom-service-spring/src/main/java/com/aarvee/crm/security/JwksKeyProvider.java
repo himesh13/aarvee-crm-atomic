@@ -40,7 +40,7 @@ public class JwksKeyProvider implements Locator<Key> {
     
     @Override
     public Key locate(Header header) {
-        String kid = header.get("kid", String.class);
+        String kid = header.get("kid").toString();
         if (kid == null) {
             log.warn("No 'kid' (Key ID) found in JWT header");
             return null;

@@ -7,24 +7,24 @@ const REQUEST_TIMEOUT = 30000; // 30 seconds timeout for API requests
 
 /**
  * Retrieves the authentication token from Supabase session.
- * 
+ *
  * Note: We rely on Supabase's built-in session management which already handles:
  * - Token caching (localStorage + memory)
  * - Automatic token refresh
  * - Token expiry checking
  * - Cross-tab synchronization
  * - Clearing tokens on logout
- * 
+ *
  * getSession() is fast (reads from cache, not network) so no additional caching is needed.
  */
 const getAuthToken = async () => {
   try {
     const { data: { session }, error } = await supabase.auth.getSession();
-    
+
     if (error || !session?.access_token) {
       return null;
     }
-    
+
     return session.access_token;
   } catch (error) {
     console.error('Failed to retrieve auth token:', error);
@@ -34,6 +34,7 @@ const getAuthToken = async () => {
 
 const fetchJson = async (url: string, options: RequestInit = {}) => {
   const token = await getAuthToken();
+  console.log("token", token);
   const headers: HeadersInit = {
     'Content-Type': 'application/json',
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
