@@ -28,6 +28,16 @@ export const defaultDealStages = [
   { value: "delayed", label: "Delayed" },
 ];
 
+export const defaultLeadStages = [
+  { value: "new", label: "New" },
+  { value: "contacted", label: "Contacted" },
+  { value: "qualified", label: "Qualified" },
+  { value: "proposal-sent", label: "Proposal Sent" },
+  { value: "negotiation", label: "Negotiation" },
+  { value: "won", label: "Won" },
+  { value: "lost", label: "Lost" },
+];
+
 export const defaultDealPipelineStatuses = ["won"];
 
 export const defaultDealCategories = [

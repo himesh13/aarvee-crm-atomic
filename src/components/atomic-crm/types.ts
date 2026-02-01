@@ -244,6 +244,8 @@ export type Lead = {
   lead_referred_by?: string;
   short_description?: string;
   lead_status: string;
+  stage: string;
+  index: number;
   created_at: string;
   updated_at: string;
 } & Pick<RaRecord, "id">;
