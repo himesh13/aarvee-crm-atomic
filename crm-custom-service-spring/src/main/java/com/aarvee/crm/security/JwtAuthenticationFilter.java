@@ -2,7 +2,6 @@ package com.aarvee.crm.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,17 +13,21 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.crypto.SecretKey;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 @Component
 @Slf4j
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     
-    @Value("${supabase.jwt.secret}")
-    private String jwtSecret;
+    private final JwksKeyProvider jwksKeyProvider;
+    
+    @Value("${supabase.auth.url:http://127.0.0.1:54321/auth/v1}")
+    private String supabaseAuthUrl;
+    
+    public JwtAuthenticationFilter(JwksKeyProvider jwksKeyProvider) {
+        this.jwksKeyProvider = jwksKeyProvider;
+    }
     
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -36,9 +39,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String token = authHeader.substring(7);
             
             try {
-                SecretKey key = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
+                // Parse the JWT using the JWKS key provider
                 Claims claims = Jwts.parser()
-                    .verifyWith(key)
+                    .keyLocator(jwksKeyProvider)
                     .build()
                     .parseSignedClaims(token)
                     .getPayload();

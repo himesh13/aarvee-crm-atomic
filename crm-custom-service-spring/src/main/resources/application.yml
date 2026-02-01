@@ -29,8 +29,8 @@ server:
     context-path: /
 
 supabase:
-  jwt:
-    secret: ${SUPABASE_JWT_SECRET}
+  auth:
+    url: ${SUPABASE_AUTH_URL:http://127.0.0.1:54321/auth/v1}
 
 cors:
   allowed:
