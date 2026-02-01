@@ -33,6 +33,10 @@
           "type": "registry:component"
         },
         {
+          "path": "src/components/atomic-crm/utils/sortMapper.ts",
+          "type": "registry:component"
+        },
+        {
           "path": "src/components/atomic-crm/tasks/TasksIterator.tsx",
           "type": "registry:component"
         },
@@ -229,6 +233,10 @@
           "type": "registry:component"
         },
         {
+          "path": "src/components/atomic-crm/providers/fakerest/dataGenerator/leads.ts",
+          "type": "registry:component"
+        },
+        {
           "path": "src/components/atomic-crm/providers/fakerest/dataGenerator/index.ts",
           "type": "registry:component"
         },
@@ -377,7 +385,15 @@
           "type": "registry:component"
         },
         {
+          "path": "src/components/atomic-crm/leads/stages.ts",
+          "type": "registry:component"
+        },
+        {
           "path": "src/components/atomic-crm/leads/index.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/atomic-crm/leads/LeadListContent.tsx",
           "type": "registry:component"
         },
         {
@@ -390,6 +406,14 @@
         },
         {
           "path": "src/components/atomic-crm/leads/LeadCreate.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/atomic-crm/leads/LeadColumn.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/atomic-crm/leads/LeadCard.tsx",
           "type": "registry:component"
         },
         {
