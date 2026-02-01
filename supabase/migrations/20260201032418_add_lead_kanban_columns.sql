@@ -9,5 +9,5 @@ CREATE INDEX IF NOT EXISTS idx_lead_extensions_stage_index
 
 -- Update existing leads to have default stage and sequential index
 UPDATE custom_features.lead_extensions 
-SET stage = 'new', index = ROW_NUMBER() OVER (ORDER BY created_at)
+SET stage = 'new', index = (ROW_NUMBER() OVER (ORDER BY created_at))::SMALLINT
 WHERE stage IS NULL OR index IS NULL;

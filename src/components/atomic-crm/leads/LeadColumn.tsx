@@ -29,7 +29,7 @@ export const LeadColumn = ({
           {totalAmount > 0 &&
             ` • ₹${totalAmount.toLocaleString("en-IN", {
               notation: "compact",
-              minimumSignificantDigits: 1,
+              maximumFractionDigits: 2,
             })}`}
         </p>
       </div>
