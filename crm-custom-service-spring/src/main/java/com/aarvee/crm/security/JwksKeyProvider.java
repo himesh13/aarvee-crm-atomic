@@ -151,16 +151,10 @@ public class JwksKeyProvider implements Locator<Key> {
         BigInteger xCoord = new BigInteger(1, xBytes);
         BigInteger yCoord = new BigInteger(1, yBytes);
         
-        // Get the curve parameters
-        java.security.spec.ECParameterSpec ecParams = 
-            java.security.AlgorithmParameters.getInstance("EC")
-                .getParameterSpec(java.security.spec.ECParameterSpec.class);
-        
-        // Create the EC point
+        // Create the EC point and get curve parameters
         java.security.spec.ECPoint point = new java.security.spec.ECPoint(xCoord, yCoord);
         
-        // For simplicity, we'll use a common approach with Bouncy Castle or standard Java
-        // Since we're on Java 17+, we can use the standard library
+        // Use standard Java cryptography API (no external libraries needed)
         ECPublicKeySpec spec = new ECPublicKeySpec(point, 
             getECParameterSpec(curveName));
         
