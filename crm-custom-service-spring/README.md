@@ -27,9 +27,9 @@ Required environment variables:
 - `DATABASE_URL` - PostgreSQL connection URL
 - `DATABASE_USERNAME` - Database username
 - `DATABASE_PASSWORD` - Database password
-- `SUPABASE_JWT_SECRET` - JWT secret from Supabase
-  - **Local development**: `super-secret-jwt-token-with-at-least-32-characters-long`
-  - **Production**: Get from Supabase Dashboard → Settings → API → JWT Secret
+- `SUPABASE_AUTH_URL` - Supabase Auth URL for JWKS endpoint
+  - **Local development**: `http://127.0.0.1:54321/auth/v1`
+  - **Production**: `https://<your-project>.supabase.co/auth/v1`
 
 ### 3. Run in Development Mode
 
@@ -153,23 +153,30 @@ VITE_CUSTOM_SERVICE_URL=http://localhost:3001/api
    ```typescript
    Authorization: Bearer <supabase-jwt-token>
    ```
-4. **Backend Validation**: Spring Boot validates the JWT token using the Supabase JWT secret
+4. **Backend Validation**: Spring Boot validates the JWT token using public keys from Supabase's JWKS endpoint
 5. **User Context**: Upon successful validation, the user ID from the token is used for authorization
 
 **Important Notes:**
+- Uses **ES256** (Elliptic Curve) algorithm for JWT signing
+- Public keys are fetched from `${SUPABASE_AUTH_URL}/.well-known/jwks.json`
+- Keys are cached for 1 hour for performance
+- No secret sharing needed - uses public key cryptography
 - Supabase automatically handles token caching, refresh, and expiry checking
 - Tokens are automatically cleared on logout (no stale token issues)
 - Cross-tab synchronization is handled by Supabase
-- No additional caching is needed - Supabase's `getSession()` is already fast
+- Supports automatic key rotation when Supabase updates keys
 
-The JWT secret must match between Supabase and the Spring Boot service:
-- **Local**: Default is `super-secret-jwt-token-with-at-least-32-characters-long`
-- **Production**: Get from Supabase Dashboard → Project Settings → API → JWT Secret
+The Supabase Auth URL must be configured correctly:
+- **Local**: `http://127.0.0.1:54321/auth/v1`
+- **Production**: `https://<your-project>.supabase.co/auth/v1`
 
 If you get a 403 error when accessing API endpoints, check:
 1. The user is logged in (Supabase session exists)
-2. The `SUPABASE_JWT_SECRET` in `.env` matches your Supabase configuration
-3. The frontend `VITE_CUSTOM_SERVICE_URL` points to the correct Spring Boot service URL
+2. The `SUPABASE_AUTH_URL` in `.env` points to the correct Supabase instance
+3. The Supabase JWKS endpoint is accessible from the Spring Boot service
+4. The frontend `VITE_CUSTOM_SERVICE_URL` points to the correct Spring Boot service URL
+
+For detailed information about the JWT ES256 implementation, see [JWT_ES256_FIX.md](../JWT_ES256_FIX.md) in the root directory.
 
 ## Development
 
